@@ -115,6 +115,7 @@ window.ROADMAP = {
           update: "API sécurisée exposant les données des modules OPS, mise en production le 30 septembre." },
         { phase: "Nouveaux sujets", title: "API Odoo OPS — écriture (bons de commande)", period: "30 septembre–1er octobre", status: "fait", owner: "Pissano",
           update: "Les bons de commande peuvent être créés en brouillon via l'API." },
+        { phase: "Nouveaux sujets", title: "Module Sprint Orchestra", status: "en_cours" },
         { phase: "Nouveaux sujets", title: "Procédures internes dans Odoo", period: "juillet · octobre", status: "en_attente", owner: "Pissano",
           update: "Module de rédaction et de diffusion des procédures démarré ; analyse des procédures SI à implémenter." },
         { phase: "Nouveaux sujets", title: "Gestion du courrier", period: "cadrage le 24 septembre", status: "a_venir",
