@@ -1,0 +1,168 @@
+/*
+ * Données de la roadmap — c'est le seul fichier à modifier pour mettre la page à jour.
+ *
+ * status : "fait" | "en_cours" | "a_venir" | "bloque" | "annule" | "a_preciser"
+ * label  : libellé affiché si différent du statut standard (ex. "En finalisation", "Vigilance")
+ * update : ce qui a bougé récemment (phrase courte, lisible par tous)
+ * details: sous-éléments optionnels [{ text, status }] affichés dans un dépliant
+ */
+window.ROADMAP = {
+  title: "Chantiers digitaux AEIG",
+  subtitle: "Ce qui est livré, ce qui avance, ce qui arrive.",
+  updated: "2026-10-02",
+  source: "Roadmap V3 – Chantiers & suivi, complétée par le suivi d'activité de l'équipe.",
+
+  chantiers: [
+    {
+      id: "odoo",
+      name: "Odoo",
+      tagline: "L'ERP de l'école : modules métiers, automatisations et pilotage.",
+      highlights: [
+        "Ticketing SI et inventaire du parc informatique en production.",
+        "API OPS livrée en lecture ; dossiers administratifs RH livrés.",
+        "En cours : stock MG-SI, onboarding RH, demandes de formation.",
+      ],
+      items: [
+        // Phase 1 · Modules métiers
+        { phase: "Phase 1 · Modules métiers", title: "Voyages & Perdiems", period: "9–27 juin (vague 1)", status: "fait", owner: "David", contact: "Léonce", support: "Pissano", cdc: "Oui", note: "Nouvelles fonctions" },
+        { phase: "Phase 1 · Modules métiers", title: "Bon de commande", period: "9–27 juin (vague 1)", status: "fait", owner: "Pissano", contact: "Jaurès Fidel", support: "David", cdc: "Oui", note: "Ajouts sur la V1" },
+        { phase: "Phase 1 · Modules métiers", title: "Signature électronique", period: "9–27 juin (vague 1)", status: "fait", owner: "Pissano", contact: "Jaurès Fidel", support: "David", cdc: "Oui",
+          update: "En production depuis juin, corrections post-mise en prod faites.",
+          details: [
+            { text: "Mise en place de modèles (templates)", status: "a_venir" },
+            { text: "Transformer un document signé en modèle réutilisable", status: "a_venir" },
+          ] },
+        { phase: "Phase 1 · Modules métiers", title: "Quick wins : dashboard évaluations RH + validations", period: "29/05 & 12/06 (vague 1)", status: "fait", owner: "Pissano", contact: "Christelle & Mireille", support: "David", cdc: "n/a",
+          update: "Module évaluations ajusté fin septembre (accès sécurisés, lien avec les formations)." },
+        { phase: "Phase 1 · Modules métiers", title: "SAV Orchestra", period: "24/06 (vague 1)", status: "fait", owner: "Pissano", contact: "Rachad", support: "David", cdc: "Oui" },
+        { phase: "Phase 1 · Modules métiers", title: "Gestion des espaces", period: "9–27 juin (vague 1)", status: "fait", owner: "David", contact: "Léonce", support: "Pissano", cdc: "Oui", note: "Nouveau module" },
+        { phase: "Phase 1 · Modules métiers", title: "Validations (workflow d'approbation)", period: "9–27 juin (vague 1)", status: "fait", owner: "Pissano", contact: "Rachad, Jaurès Gomez & Constant", support: "David", cdc: "Oui",
+          update: "Évolutions fin août–septembre : manager obligatoire par catégorie, délégation, notifications, lignes budgétaires." },
+        { phase: "Phase 1 · Modules métiers", title: "Électricité", period: "9–27 juin (vague 1)", status: "fait", owner: "David", contact: "Léonce", support: "Pissano", cdc: "Oui", note: "Nouvelles fonctions" },
+        { phase: "Phase 1 · Modules métiers", title: "Gestion de flotte", period: "23 juin–11 juil. (vague 2)", status: "fait", owner: "David", contact: "Rachad", support: "Pissano", cdc: "Oui", note: "Nouveau module" },
+        { phase: "Phase 1 · Modules métiers", title: "Cession des actifs", period: "23 juin–11 juil. (vague 2)", status: "annule", owner: "David", contact: "Rachad", support: "Pissano", cdc: "Oui" },
+        { phase: "Phase 1 · Modules métiers", title: "Modules juridiques", period: "27 juin–18 juil. (vague 2)", status: "bloque", owner: "David", contact: "Faustin", support: "Pissano", cdc: "Non",
+          blocker: "Disponibilité de Faustin", note: "Pas de besoins exprimés" },
+        { phase: "Phase 1 · Modules métiers", title: "Modules SI : ticketing SAV, gestionnaire Bocal", period: "juillet–août", status: "fait", owner: "Pissano", contact: "Cédric, Amos & Bernard", support: "David", cdc: "Oui",
+          update: "Ticketing en production, derniers correctifs fin septembre. Inventaire du parc informatique livré fin septembre." },
+        { phase: "Phase 1 · Modules métiers", title: "Intégration du stock MG – SI", period: "août–septembre", status: "en_cours", owner: "Pissano", contact: "Jaurès, Amos", support: "David", cdc: "n/a",
+          update: "Nettoyage des produits fait. Correctifs demandes & services en revue (équipes, dispatching). Assainissement des intitulés produits en cours." },
+        { phase: "Phase 1 · Modules métiers", title: "Compléments RH", period: "en continu depuis mi-juillet", status: "en_cours", owner: "Pissano", contact: "Christelle", support: "David", cdc: "n/a",
+          update: "Livrés : screening des CV par IA, prise de rendez-vous d'entretien, dossiers administratifs des employés. En cours : onboarding/offboarding, demandes de formation.",
+          details: [
+            { text: "Recrutement — revue de l'analyse IA", status: "fait" },
+            { text: "Recrutement — planification des entretiens après le tri IA", status: "fait" },
+            { text: "Dossiers administratifs des employés", status: "fait" },
+            { text: "Évaluation — formation (demandes de formation)", status: "en_cours" },
+            { text: "Onboarding / offboarding", status: "en_cours" },
+            { text: "Recrutement — grille d'évaluation générée par l'IA", status: "a_venir" },
+            { text: "Évaluation — session de décision post-évaluation", status: "a_venir" },
+            { text: "Évaluation — prise de décisions", status: "a_venir" },
+            { text: "Évaluation — objectifs & KPI", status: "a_venir" },
+            { text: "Évaluation — session action", status: "a_venir" },
+          ] },
+        { phase: "Phase 1 · Modules métiers", title: "Compléments RAF", period: "en continu depuis mi-juillet", status: "en_cours", owner: "David", contact: "Constant", support: "Pissano", cdc: "n/a",
+          update: "Point sur les éléments contractuels restants le 21 septembre.",
+          details: [
+            { text: "Bugs — navigation entre les années scolaires", status: "a_venir" },
+            { text: "Bugs — paiements en avance, échéances, états de paiement", status: "a_venir" },
+            { text: "Bugs — réaffectation des promos (données à réimporter)", status: "a_venir" },
+            { text: "10 KPI : frais de scolarité, boursiers, recouvrement, abandons, inscriptions…", status: "a_venir" },
+            { text: "Paie : échelonnement des charges, état des salaires, avances, ordres de virement", status: "a_venir" },
+            { text: "Paie : déclarations fiscales et sociales, imputation budgétaire", status: "a_venir" },
+            { text: "Budget & compta : imports de budgets, modèles d'écriture", status: "a_venir" },
+            { text: "États financiers SYSCOHADA révisé pour toutes les entités", status: "a_venir" },
+            { text: "Ordres de virement MoMo MTN pour les fournisseurs", status: "a_venir" },
+          ] },
+        // Phase 2 · Automatisations
+        { phase: "Phase 2 · Automatisations", title: "Questionnaire managers", period: "semaine du 23 juin", status: "fait", owner: "David", contact: "Managers de tribus", support: "Pissano", cdc: "n/a", note: "Enquête irritants" },
+        { phase: "Phase 2 · Automatisations", title: "Consolidation des retours", period: "début juillet", status: "en_cours", label: "En cours & évolutif", owner: "David", contact: "Rachad", support: "Pissano", cdc: "Non",
+          blocker: "Fin du questionnaire", note: "Livrable existant" },
+        { phase: "Phase 2 · Automatisations", title: "Développement des automatisations", period: "fin juillet–mi-août", status: "en_cours", owner: "David & Pissano", contact: "Managers de tribus", support: "David & Pissano", cdc: "Non" },
+        // Phase 3 · Dashboards
+        { phase: "Phase 3 · Dashboards", title: "Dashboards de pilotage (mise en place du module)", period: "21 juil.–14 août", status: "en_cours", owner: "David & Pissano", contact: "Johanne", support: "Franck", cdc: "Non",
+          blocker: "Fin de Zeno (phase 1)", note: "Calés sur la fin de Zeno P1" },
+        { phase: "Phase 3 · Dashboards", title: "Recette & go-live V2", period: "11–14 août", status: "a_venir", owner: "David", contact: "Managers de tribus", support: "Pissano", cdc: "n/a", note: "Recette & mise en service" },
+        // Nouveaux sujets
+        { phase: "Nouveaux sujets", title: "API Odoo OPS — lecture", period: "août–septembre", status: "fait", owner: "Pissano",
+          update: "API sécurisée exposant les données des modules OPS, mise en production le 30 septembre." },
+        { phase: "Nouveaux sujets", title: "API Odoo OPS — écriture (bons de commande)", period: "depuis le 30 septembre", status: "en_cours", owner: "Pissano",
+          update: "Création de bons de commande en brouillon via l'API." },
+        { phase: "Nouveaux sujets", title: "Procédures internes dans Odoo", period: "juillet · octobre", status: "en_cours", owner: "Pissano",
+          update: "Module de rédaction et de diffusion des procédures démarré ; analyse des procédures SI à implémenter." },
+        { phase: "Nouveaux sujets", title: "Gestion du courrier", period: "cadrage le 24 septembre", status: "a_venir",
+          update: "Réunion de cadrage faite, cahier des charges à rédiger." },
+      ],
+    },
+
+    {
+      id: "zeno",
+      name: "Zeno",
+      tagline: "La plateforme étudiants, parents et candidats d'Epitech Africa.",
+      highlights: [
+        "Site epitech.africa et publication des événements campus livrés.",
+        "Portail parent et pédagogie étudiant en finalisation.",
+        "CRM et campagnes des marques à venir.",
+      ],
+      items: [
+        { title: "Admission", period: "fin juillet", status: "a_preciser", owner: "Franck", contact: "Fabrice et Charbel", support: "Pissano", cdc: "Oui",
+          blocker: "Communication (WhatsApp)", note: "Compte d'Antoine (voir avec Foumi)" },
+        { title: "Communication : site epitech.africa (EDMS)", period: "début juillet", status: "fait", owner: "Alex", contact: "Foumi", support: "Cédric", cdc: "Oui", note: "Reste des commodités" },
+        { title: "Communication : événements campus publiés sur epitech.africa et le portail candidat", period: "début juillet", status: "fait", owner: "Alex", contact: "Foumi", support: "Cédric & Pissano", cdc: "Oui" },
+        { title: "Campus (vie associative…)", period: "fin juillet", status: "en_cours", owner: "Giovanni", contact: "Laure", support: "David", cdc: "Non", note: "Input du BO" },
+        { title: "Pédagogie étudiant & APE", period: "fin juillet", status: "en_cours", label: "En finalisation", owner: "Edwin", contact: "Ghislain & Franck", support: "Pissano", cdc: "Oui" },
+        { title: "Pédagogie : portail parent", period: "fin juillet", status: "en_cours", label: "En finalisation", owner: "Modeste", contact: "Ghislain & Franck", support: "David", cdc: "Oui",
+          update: "Refonte de l'interface avec les données my.epitech (progression, projets, assiduité). Décision D-01 tranchée. Prochaines étapes : éléments V2, choix de l'année, mise en ligne." },
+        { title: "Pédagogie : anglais", period: "fin juillet", status: "en_cours", owner: "Alex", contact: "Franck", cdc: "Oui" },
+        { title: "Career Center", period: "31 août", status: "bloque", label: "Vigilance", owner: "Spynel", contact: "Idelphonse", support: "Cédric", cdc: "Non",
+          blocker: "Le cahier des charges change énormément, à valider", note: "Specs à faire après Admission & CRM" },
+        { title: "CRM AEIG (toutes marques)", period: "début août", status: "a_venir", owner: "Franck", contact: "Stéphanie & Gwen", support: "David", cdc: "Non",
+          blocker: "Spécifications / cahier des charges", note: "Test en août" },
+        { title: "Digital Valley (campagne)", period: "début août", status: "a_venir", owner: "Dara & Franck", contact: "Yann", support: "Dara", cdc: "Non",
+          note: "Voir avec Daryl et Gwen pour produire le funnel, comme pour Croissance" },
+        { title: "Takabytes (bizdev)", period: "début août", status: "a_preciser" },
+        { title: "AfrikEdutech (captation de données)", period: "début août", status: "a_preciser" },
+        { title: "Future Studio", period: "début août", status: "a_venir", owner: "Godwyn", contact: "Henry", support: "Pissano", cdc: "Non" },
+      ],
+    },
+
+    {
+      id: "mydocs",
+      name: "Mydocs",
+      tagline: "Epidocs : pointage, documents et suivi administratif des étudiants.",
+      highlights: [
+        "Pointage admin corrigé et déployé le 1er octobre.",
+        "QR codes de pointage : historique, consultation et téléchargement livrés.",
+        "En cours : changement de programme d'un étudiant, nouveau Bachelor Tech & Business.",
+      ],
+      items: [
+        { title: "Pointage admin : saisie du code PIN et caméra de scan", period: "fin sept.–1er oct.", status: "fait", owner: "Pissano",
+          update: "Correctifs testés sur téléphone et déployés (frontend et backend) le 1er octobre." },
+        { title: "QR codes de pointage : historique d'envoi, consultation et téléchargement", period: "1er octobre", status: "fait", owner: "Pissano",
+          update: "Téléchargement par section ou par login, QR code seul plutôt que le badge complet." },
+        { title: "Gestion des classes côté admin", period: "1er octobre", status: "fait", owner: "Pissano" },
+        { title: "Changement de programme d'un étudiant", period: "octobre", status: "en_cours", owner: "Pissano",
+          update: "Fonctionnalité développée, en cours de validation." },
+        { title: "Nouveau programme Bachelor Tech & Business", period: "octobre", status: "en_cours", owner: "Pissano",
+          update: "Trois classes sur le modèle du PGE, avec un diplôme délivré en 3e année." },
+        { title: "Intégration Mydocs", status: "a_preciser" },
+      ],
+    },
+  ],
+
+  ideas: {
+    title: "Pistes à cadrer",
+    text: "Sujets identifiés, sans porteur ni calendrier pour l'instant. À prévoir : définir le niveau de compétences requis (interne ou externe) et décliner la méthode en étapes.",
+    items: [
+      "Test d'admission MSc unifié",
+      "Admission : écrans pour le jury",
+      "Compte Paudunya",
+      "SMS Epitech via Ikoddi",
+      "Boîte de réception unifiée (tickets)",
+      "Registre Docker : payant ou auto-hébergé",
+      "Valider la fiche étudiant",
+      "Valider l'algorithme de détection du décrochage",
+      "Statistiques des sondages",
+    ],
+  },
+};
