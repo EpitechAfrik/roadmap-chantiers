@@ -109,7 +109,12 @@ main { padding: 32px 0 64px; }
 .highlights li { margin: 0 0 4px; font-size: 14px; }
 
 .board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
-@media (max-width: 980px) { .board { grid-template-columns: 1fr; } }
+.board.cols-1 { grid-template-columns: 1fr; }
+.board.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.board.cols-4 { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 1180px) { .board.cols-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 980px) { .board, .board.cols-2 { grid-template-columns: 1fr; } }
+@media (max-width: 980px) { .board.cols-4 { grid-template-columns: 1fr; } }
 .col { background: var(--surface-2); border-radius: var(--radius); padding: 12px; }
 .col-head { display: flex; align-items: center; gap: 8px; padding: 4px 6px 12px; font-weight: 700; font-size: 14px; }
 .col-head .ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; }
@@ -179,6 +184,7 @@ mark { background: var(--amber-soft); color: inherit; border-radius: 3px; paddin
       <button data-f="fait">Fait</button>
       <button data-f="en_cours">En cours</button>
       <button data-f="a_venir">À venir</button>
+      <button data-f="en_attente">En attente</button>
     </div>
     <label class="search">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -200,7 +206,7 @@ mark { background: var(--amber-soft); color: inherit; border-radius: 3px; paddin
   </div>
 </footer>
 
-<script src="data.js"></script>
+<script>document.write('<script src="data.js?v=' + Date.now() + '"><\/script>');</script>
 <script>
 const D = window.ROADMAP;
 const $ = s => document.querySelector(s);
@@ -219,7 +225,8 @@ const ST = {
 const COLS = [
   { key: 'fait', title: 'Fait', statuses: ['fait'] },
   { key: 'en_cours', title: 'En cours', statuses: ['en_cours'] },
-  { key: 'a_venir', title: 'À venir & points d\'attention', statuses: ['bloque', 'a_preciser', 'en_attente', 'a_venir', 'annule'] },
+  { key: 'a_venir', title: 'À venir & points d\'attention', statuses: ['bloque', 'a_preciser', 'a_venir', 'annule'] },
+  { key: 'en_attente', title: 'En attente', statuses: ['en_attente'], optional: true },
 ];
 const ORDER = { bloque: 0, a_preciser: 1, a_venir: 2, en_attente: 3, annule: 4 };
 
@@ -286,7 +293,8 @@ function render() {
     const k = counts(live);
     const match = c.items.filter(i => !query || hay(i).includes(norm(query)));
     shown += match.length;
-    const cols = COLS.filter(col => filter === 'all' || col.key === filter);
+    // la colonne « En attente » n'apparaît que pour les chantiers qui en ont
+    const cols = COLS.filter(col => (filter === 'all' || col.key === filter) && (!col.optional || filter === col.key || match.some(i => col.statuses.includes(i.status))));
     return `<section class="chantier ${match.length ? '' : 'hidden'}" id="${c.id}">
       <div class="ch-head">
         <div>
@@ -297,7 +305,7 @@ function render() {
         </div>
         ${c.highlights && c.highlights.length ? `<div class="highlights"><h3>Points clés</h3><ul>${c.highlights.map(h => `<li>${esc(h)}</li>`).join('')}</ul></div>` : ''}
       </div>
-      <div class="board" style="${cols.length === 1 ? 'grid-template-columns:1fr' : ''}">
+      <div class="board cols-${cols.length}">
         ${cols.map(col => {
           const list = match.filter(i => col.statuses.includes(i.status)).sort((a, b) => (ORDER[a.status] ?? 0) - (ORDER[b.status] ?? 0));
           const s = ST[col.key];
