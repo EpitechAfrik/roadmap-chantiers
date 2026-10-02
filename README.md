@@ -12,7 +12,7 @@ Tout le contenu est dans **`data.js`**. Pour un sujet :
   update: "Cahier des charges validé, développement démarré." }
 ```
 
-- `status` : `fait` · `en_cours` · `a_venir` · `bloque` · `a_preciser` · `annule`
+- `status` : `fait` · `en_cours` · `en_attente` · `a_venir` · `bloque` · `a_preciser` · `annule`
 - `label` (optionnel) : libellé affiché à la place du statut standard (ex. `"En finalisation"`, `"Vigilance"`)
 - `update` : ce qui a bougé récemment, en une phrase
 - `blocker` : affiché en rouge

@@ -20,6 +20,7 @@
   --venir: #7a8496; --venir-bg: #eef0f3;
   --bloque: #d93b3b; --bloque-bg: #fdecec;
   --preciser: #b7791f; --preciser-bg: #fdf3e1;
+  --attente: #7c5cc4; --attente-bg: #f0ebfa;
   --shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 2px 8px rgba(15, 23, 42, .04);
   --radius: 14px;
 }
@@ -33,6 +34,7 @@
     --venir: #9aa3b3; --venir-bg: #1f2a3d;
     --bloque: #f07070; --bloque-bg: #3a1d22;
     --preciser: #e3a548; --preciser-bg: #3a2c14;
+    --attente: #a98ef0; --attente-bg: #2a2142;
     --amber-soft: #3a2c14;
     --shadow: none;
   }
@@ -46,6 +48,7 @@
   --venir: #9aa3b3; --venir-bg: #1f2a3d;
   --bloque: #f07070; --bloque-bg: #3a1d22;
   --preciser: #e3a548; --preciser-bg: #3a2c14;
+  --attente: #a98ef0; --attente-bg: #2a2142;
   --amber-soft: #3a2c14;
   --shadow: none;
 }
@@ -193,7 +196,7 @@ mark { background: var(--amber-soft); color: inherit; border-radius: 3px; paddin
 <footer>
   <div class="wrap">
     <span id="source"></span>
-    <span>Statuts : ✓ fait · ◐ en cours · ○ à venir · ⚠ bloqué / vigilance · ? à préciser</span>
+    <span>Statuts : ✓ fait · ◐ en cours · ○ à venir · ⏸ en attente · ⚠ bloqué / vigilance · ? à préciser</span>
   </div>
 </footer>
 
@@ -209,23 +212,24 @@ const ST = {
   a_venir:    { label: 'À venir',    color: 'var(--venir)',    bg: 'var(--venir-bg)',    mark: '○' },
   bloque:     { label: 'Bloqué',     color: 'var(--bloque)',   bg: 'var(--bloque-bg)',   mark: '⚠' },
   a_preciser: { label: 'À préciser', color: 'var(--preciser)', bg: 'var(--preciser-bg)', mark: '?' },
+  en_attente: { label: 'En attente', color: 'var(--attente)',  bg: 'var(--attente-bg)',  mark: '⏸' },
   annule:     { label: 'Annulé',     color: 'var(--muted)',    bg: 'var(--surface-2)',   mark: '×' },
 };
 // colonnes du tableau : bloqué, à préciser et annulé rejoignent « À venir » (en fin de liste)
 const COLS = [
   { key: 'fait', title: 'Fait', statuses: ['fait'] },
   { key: 'en_cours', title: 'En cours', statuses: ['en_cours'] },
-  { key: 'a_venir', title: 'À venir & points d\'attention', statuses: ['bloque', 'a_preciser', 'a_venir', 'annule'] },
+  { key: 'a_venir', title: 'À venir & points d\'attention', statuses: ['bloque', 'a_preciser', 'en_attente', 'a_venir', 'annule'] },
 ];
-const ORDER = { bloque: 0, a_preciser: 1, a_venir: 2, annule: 3 };
+const ORDER = { bloque: 0, a_preciser: 1, a_venir: 2, en_attente: 3, annule: 4 };
 
 function counts(items) {
-  const c = { fait: 0, en_cours: 0, a_venir: 0, bloque: 0, a_preciser: 0, annule: 0 };
+  const c = { fait: 0, en_cours: 0, a_venir: 0, bloque: 0, a_preciser: 0, en_attente: 0, annule: 0 };
   items.forEach(i => c[i.status]++);
   return c;
 }
 function bar(c, total) {
-  return ['fait', 'en_cours', 'bloque', 'a_preciser', 'a_venir'].filter(k => c[k])
+  return ['fait', 'en_cours', 'bloque', 'a_preciser', 'a_venir', 'en_attente'].filter(k => c[k])
     .map(k => `<span style="width:${100 * c[k] / total}%;background:${ST[k].color}" title="${ST[k].label} : ${c[k]}"></span>`).join('');
 }
 function longDate(iso) { return new Date(iso + 'T12:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }); }
@@ -241,7 +245,7 @@ const g = counts(all);
 $('#stats').innerHTML = [
   ['fait', 'Faits', g.fait],
   ['en_cours', 'En cours', g.en_cours],
-  ['a_venir', 'À venir', g.a_venir + g.a_preciser],
+  ['a_venir', 'À venir · en attente', g.a_venir + g.a_preciser + g.en_attente],
   ['bloque', 'Bloqués / vigilance', g.bloque],
 ].map(([k, l, n]) => `<div class="stat"><div class="n">${n}</div><div class="l"><i style="background:${k === 'a_venir' ? '#9aa3b3' : ST[k].color}"></i>${l}</div></div>`).join('');
 $('#globalbar').innerHTML = bar(g, all.length);
@@ -289,7 +293,7 @@ function render() {
           <h2>${esc(c.name)} <small>${k.fait} / ${live.length} faits</small></h2>
           <div class="tag">${esc(c.tagline)}</div>
           <div class="progress" aria-hidden="true">${bar(k, live.length)}</div>
-          <div class="legend">${['fait', 'en_cours', 'a_venir', 'bloque', 'a_preciser'].filter(s => k[s]).map(s => `<span><i style="background:${ST[s].color}"></i>${k[s]} ${ST[s].label.toLowerCase()}</span>`).join('')}</div>
+          <div class="legend">${['fait', 'en_cours', 'a_venir', 'en_attente', 'bloque', 'a_preciser'].filter(s => k[s]).map(s => `<span><i style="background:${ST[s].color}"></i>${k[s]} ${ST[s].label.toLowerCase()}</span>`).join('')}</div>
         </div>
         ${c.highlights && c.highlights.length ? `<div class="highlights"><h3>Points clés</h3><ul>${c.highlights.map(h => `<li>${esc(h)}</li>`).join('')}</ul></div>` : ''}
       </div>

@@ -1,7 +1,7 @@
 /*
  * Données de la roadmap — c'est le seul fichier à modifier pour mettre la page à jour.
  *
- * status : "fait" | "en_cours" | "a_venir" | "bloque" | "annule" | "a_preciser"
+ * status : "fait" | "en_cours" | "en_attente" | "a_venir" | "bloque" | "annule" | "a_preciser"
  * label  : libellé affiché si différent du statut standard (ex. "En finalisation", "Vigilance")
  * update : ce qui a bougé récemment (phrase courte, lisible par tous)
  * details: sous-éléments optionnels [{ text, status }] affichés dans un dépliant
@@ -99,13 +99,13 @@ window.ROADMAP = {
           ] },
         // Phase 2 · Automatisations
         { phase: "Phase 2 · Automatisations", title: "Questionnaire managers", period: "semaine du 23 juin", status: "fait", owner: "David", contact: "Managers de tribus", support: "Pissano", cdc: "n/a", note: "Enquête irritants" },
-        { phase: "Phase 2 · Automatisations", title: "Consolidation des retours", period: "début juillet", status: "en_cours", label: "En cours & évolutif", owner: "David", contact: "Rachad", support: "Pissano", cdc: "Non",
+        { phase: "Phase 2 · Automatisations", title: "Consolidation des retours", period: "début juillet", status: "en_attente", owner: "David", contact: "Rachad", support: "Pissano", cdc: "Non",
           blocker: "Fin du questionnaire", note: "Livrable existant" },
-        { phase: "Phase 2 · Automatisations", title: "Développement des automatisations", period: "fin juillet–mi-août", status: "en_cours", owner: "David & Pissano", contact: "Managers de tribus", support: "David & Pissano", cdc: "Non" },
+        { phase: "Phase 2 · Automatisations", title: "Développement des automatisations", period: "fin juillet–mi-août", status: "en_attente", owner: "David & Pissano", contact: "Managers de tribus", support: "David & Pissano", cdc: "Non" },
         // Phase 3 · Dashboards
-        { phase: "Phase 3 · Dashboards", title: "Dashboards de pilotage (mise en place du module)", period: "21 juil.–14 août", status: "en_cours", owner: "David & Pissano", contact: "Johanne", support: "Franck", cdc: "Non",
+        { phase: "Phase 3 · Dashboards", title: "Dashboards de pilotage (mise en place du module)", period: "21 juil.–14 août", status: "en_attente", owner: "David & Pissano", contact: "Johanne", support: "Franck", cdc: "Non",
           blocker: "Fin de Zeno (phase 1)", note: "Calés sur la fin de Zeno P1" },
-        { phase: "Phase 3 · Dashboards", title: "Recette & go-live V2", period: "11–14 août", status: "a_venir", owner: "David", contact: "Managers de tribus", support: "Pissano", cdc: "n/a", note: "Recette & mise en service" },
+        { phase: "Phase 3 · Dashboards", title: "Recette & go-live V2", period: "11–14 août", status: "en_attente", owner: "David", contact: "Managers de tribus", support: "Pissano", cdc: "n/a", note: "Recette & mise en service" },
         // Nouveaux sujets
         { phase: "Nouveaux sujets", title: "API Odoo OPS — lecture", period: "août–septembre", status: "fait", owner: "Pissano",
           update: "API sécurisée exposant les données des modules OPS, mise en production le 30 septembre." },
