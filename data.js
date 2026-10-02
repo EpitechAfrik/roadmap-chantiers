@@ -107,6 +107,10 @@ window.ROADMAP = {
           blocker: "Fin de Zeno (phase 1)", note: "Calés sur la fin de Zeno P1" },
         { phase: "Phase 3 · Dashboards", title: "Recette & go-live V2", period: "11–14 août", status: "en_attente", owner: "David", contact: "Managers de tribus", support: "Pissano", cdc: "n/a", note: "Recette & mise en service" },
         // Nouveaux sujets
+        { phase: "Nouveaux sujets", title: "Dossier administratif RH des employés", period: "25–28 septembre", status: "fait", owner: "Pissano",
+          update: "Dossier généré dès l'onboarding. Le collaborateur connecté dépose ses pièces (dépôt multiple) via « Mon dossier administratif ». Les RH consultent les pièces dans Odoo et des relances partent par paliers. Livré le 28 septembre." },
+        { phase: "Nouveaux sujets", title: "Matricule étudiant dans les demandes", period: "23 septembre", status: "fait", owner: "Pissano",
+          update: "Matricule étudiant conforme du portail jusqu'au dossier de la demande. Pont avec Gescoth corrigé pour la définition des matricules." },
         { phase: "Nouveaux sujets", title: "API Odoo OPS — lecture", period: "août–septembre", status: "fait", owner: "Pissano",
           update: "API sécurisée exposant les données des modules OPS, mise en production le 30 septembre." },
         { phase: "Nouveaux sujets", title: "API Odoo OPS — écriture (bons de commande)", period: "30 septembre–1er octobre", status: "fait", owner: "Pissano",
