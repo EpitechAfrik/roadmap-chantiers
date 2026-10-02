@@ -19,7 +19,7 @@ window.ROADMAP = {
       tagline: "L'ERP de l'école : modules métiers, automatisations et pilotage.",
       highlights: [
         "Ticketing SI et inventaire du parc informatique en production.",
-        "API OPS livrée en lecture ; dossiers administratifs RH livrés.",
+        "API OPS livrée (lecture et création de bons de commande) ; dossiers administratifs RH livrés.",
         "RAF : budgets groupe et corrections Gescoth livrés.",
         "Demandes de formation livrées ; en cours : stock MG-SI, onboarding RH.",
       ],
@@ -109,8 +109,8 @@ window.ROADMAP = {
         // Nouveaux sujets
         { phase: "Nouveaux sujets", title: "API Odoo OPS — lecture", period: "août–septembre", status: "fait", owner: "Pissano",
           update: "API sécurisée exposant les données des modules OPS, mise en production le 30 septembre." },
-        { phase: "Nouveaux sujets", title: "API Odoo OPS — écriture (bons de commande)", period: "depuis le 30 septembre", status: "en_cours", owner: "Pissano",
-          update: "Création de bons de commande en brouillon via l'API." },
+        { phase: "Nouveaux sujets", title: "API Odoo OPS — écriture (bons de commande)", period: "30 septembre–1er octobre", status: "fait", owner: "Pissano",
+          update: "Les bons de commande peuvent être créés en brouillon via l'API." },
         { phase: "Nouveaux sujets", title: "Procédures internes dans Odoo", period: "juillet · octobre", status: "en_cours", owner: "Pissano",
           update: "Module de rédaction et de diffusion des procédures démarré ; analyse des procédures SI à implémenter." },
         { phase: "Nouveaux sujets", title: "Gestion du courrier", period: "cadrage le 24 septembre", status: "a_venir",
