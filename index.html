@@ -81,6 +81,16 @@ body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 Inte
 .tabs { display: flex; gap: 2px; flex-wrap: wrap; }
 .tabs a { text-decoration: none; color: var(--text-2); font-weight: 600; font-size: 14px; padding: 7px 11px; border-radius: 9px; }
 .tabs a:hover { background: var(--surface-2); color: var(--text); }
+.ctabs { display: flex; gap: 4px; }
+.ctabs button { border: 0; background: none; font: inherit; font-size: 15px; font-weight: 700; color: var(--text-2); padding: 8px 14px; border-radius: 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+.ctabs button:hover { background: var(--surface-2); color: var(--text); }
+.ctabs button.on { background: var(--navy); color: #fff; }
+.ctabs .n { font-size: 11.5px; font-weight: 700; border-radius: 99px; padding: 1px 7px; background: var(--surface-2); color: var(--text-2); }
+.ctabs button.on .n { background: rgba(255,255,255,.16); color: #fff; }
+@media (max-width: 640px) { #anchors { display: none; } .ctabs button { font-size: 14px; padding: 7px 11px; } }
+.lbar { position: relative; }
+.lbar span.all { position: absolute; left: 0; top: 0; bottom: 0; background: rgba(255,255,255,.22); }
+.lbar span.mine { position: absolute; left: 0; top: 0; bottom: 0; }
 .spacer { flex: 1; }
 .seg { display: flex; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 3px; gap: 2px; }
 .seg button { border: 0; background: none; font: inherit; font-size: 13px; font-weight: 600; color: var(--text-2); padding: 5px 11px; border-radius: 7px; cursor: pointer; }
@@ -187,12 +197,10 @@ footer { border-top: 1px solid var(--border); padding: 20px 0 36px; color: var(-
 
 <nav class="bar" aria-label="Navigation">
   <div class="wrap">
-    <div class="tabs">
-      <a href="#sprint">Sprint en cours</a><a href="#suivant">Sprint suivant</a><a href="#sujets">Gros sujets</a><a href="#backlog">Backlog</a><a href="#historique">Historique</a>
-    </div>
+    <div class="ctabs" id="ctabs" role="tablist" aria-label="Chantiers"></div>
     <div class="spacer"></div>
-    <div class="seg" id="chf" role="group" aria-label="Filtrer par chantier">
-      <button data-c="" class="on">Tous</button><button data-c="Odoo">Odoo</button><button data-c="Zeno">Zeno</button><button data-c="Mydocs">Mydocs</button>
+    <div class="tabs" id="anchors">
+      <a href="#sprint">Sprint</a><a href="#sujets">Gros sujets</a><a href="#backlog">Backlog</a><a href="#historique">Historique</a>
     </div>
   </div>
 </nav>
@@ -211,8 +219,9 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': 
 const days = n => n == null ? 'à estimer' : String(+n).replace('.', ',') + ' j';
 const sum = (l, f) => l.reduce((a, x) => a + (f(x) || 0), 0);
 const dfmt = (d, o = { day: 'numeric', month: 'short' }) => new Date(d + 'T12:00').toLocaleDateString('fr-FR', o);
-let CH = '';
-const inCh = x => !CH || x.chantier === CH;
+const CHANTIERS = ['Odoo', 'Zeno', 'Mydocs'];
+let CH = CHANTIERS.find(c => c.toLowerCase() === (new URLSearchParams(location.search).get('chantier') || '').toLowerCase()) || 'Odoo';
+const inCh = x => x.chantier === CH;
 
 function deadline(d) {
   if (!d) return '<span class="dl none">Deadline à définir</span>';
@@ -223,19 +232,24 @@ function deadline(d) {
 function header() {
   const s = S.current;
   if (!s) { $('#spName').textContent = 'Pas de sprint en cours'; return; }
-  $('#spName').innerHTML = `Sprint ${esc(s.name.replace('S', ''))}<small>${dfmt(s.start, { weekday: 'long', day: 'numeric', month: 'long' })} → ${dfmt(s.end, { weekday: 'long', day: 'numeric', month: 'long' })}</small>`;
+  $('#spName').innerHTML = `${esc(CH)} · Sprint ${esc(s.name.replace('S', ''))}<small>${dfmt(s.start, { weekday: 'long', day: 'numeric', month: 'long' })} → ${dfmt(s.end, { weekday: 'long', day: 'numeric', month: 'long' })}</small>`;
   $('#spGoal').className = 'goal' + (s.goal ? '' : ' empty');
   $('#spGoal').textContent = s.goal || 'Objectif du sprint à définir.';
-  const done = s.tasks.filter(t => t.status === 'fait').length;
+  const ts = s.tasks.filter(inCh), incs = s.incidents.filter(inCh);
   $('#spKpis').innerHTML = [
-    [s.tasks.length, 'sous-sujets engagés'], [done, 'livrés'],
-    [s.incidents.length, 'imprévus'], [s.tasks.filter(t => t.carried_from).length, 'reportés'],
+    [ts.length, 'sous-sujets engagés'], [ts.filter(t => t.status === 'fait').length, 'livrés'],
+    [incs.length, 'imprévus'], [ts.filter(t => t.carried_from).length, 'reportés'],
   ].map(([n, l]) => `<div><b>${n}</b>${l}</div>`).join('');
-  const people = [...new Set([...Object.keys(s.capacity), ...Object.keys(s.load)])];
-  $('#spLoad').innerHTML = `<h3>Charge engagée / capacité</h3>` + people.map(p => {
-    const cap = s.capacity[p] || 0, l = s.load[p] || 0, over = l > cap;
-    return `<div class="lrow"><span>${esc(p)}</span><div class="lbar ${over ? 'over' : ''}"><span style="width:${Math.min(100, 100 * l / Math.max(cap, .5))}%"></span></div><span class="v ${over ? 'over' : ''}">${String(l).replace('.', ',')} / ${String(cap).replace('.', ',')} j</span></div>`;
-  }).join('') + `<div class="note">On ne s'engage pas sur plus que la capacité de la semaine. Les imprévus traités comptent dans la charge.</div>`;
+  // charge de chacun : la part de ce chantier (couleur) dans sa charge totale de la semaine (gris clair)
+  const mine = {};
+  ts.forEach(t => { const p = t.person || 'Non attribué'; mine[p] = (mine[p] || 0) + (t.estimate || 0); });
+  incs.filter(i => i.decision === 'traite').forEach(i => { const p = i.person || 'Non attribué'; mine[p] = (mine[p] || 0) + (i.impact || 0); });
+  const people = [...new Set([...Object.keys(s.capacity), ...Object.keys(s.load)])].filter(p => s.capacity[p] || s.load[p]);
+  const n = v => String(+(v || 0).toFixed(1)).replace('.', ',');
+  $('#spLoad').innerHTML = `<h3>Charge de la semaine · part ${esc(CH)}</h3>` + people.map(p => {
+    const cap = s.capacity[p] || 0, all = s.load[p] || 0, m = mine[p] || 0, over = all > cap, w = v => Math.min(100, 100 * v / Math.max(cap, .5));
+    return `<div class="lrow"><span>${esc(p)}</span><div class="lbar ${over ? 'over' : ''}"><span class="all" style="width:${w(all)}%"></span><span class="mine" style="width:${w(m)}%;background:${over ? '#f87171' : 'var(--amber)'}"></span></div><span class="v ${over ? 'over' : ''}">${n(m)} · ${n(all)} / ${n(cap)} j</span></div>`;
+  }).join('') + `<div class="note">En couleur : ${esc(CH)} · en clair : charge totale de la semaine, tous chantiers. On ne s'engage pas sur plus que la capacité ; les imprévus traités comptent.</div>`;
 }
 
 function taskCard(t) {
@@ -247,7 +261,7 @@ function taskCard(t) {
 function sprintSection() {
   const s = S.current;
   if (!s) return '';
-  const ts = s.tasks.filter(inCh);
+  const ts = s.tasks.filter(inCh), incs = s.incidents.filter(inCh);
   const cols = [['a_faire', 'À faire', '○', 'var(--venir)', 'var(--venir-bg)'], ['en_cours', 'En cours', '◐', 'var(--cours)', 'var(--cours-bg)'], ['fait', 'Fait', '✓', 'var(--fait)', 'var(--fait-bg)']];
   const decision = i => i.decision === 'traite' ? '<span class="tag ok">Traité dans le sprint</span>' : i.decision === 'bascule' ? '<span class="tag cours">Basculé au sprint suivant</span>' : '<span class="tag warn">À qualifier</span>';
   return `<section class="blk" id="sprint">
@@ -256,8 +270,8 @@ function sprintSection() {
       const list = ts.filter(t => t.status === k);
       return `<div class="col ${k === 'fait' ? 'done' : ''}"><div class="col-head"><span class="ic" style="color:${c};background:${bg}">${ic}</span>${l}<span class="cnt">${list.length}</span></div>${list.length ? list.map(taskCard).join('') : '<div class="empty">—</div>'}</div>`;
     }).join('')}</div>
-    <div class="incidents"><h3>⚡ Imprévus du sprint <span class="tag">${s.incidents.length}</span></h3>
-      ${s.incidents.length ? s.incidents.map(i => `<div class="inc"><span class="t">${esc(i.title)}</span><span class="m">${[i.day && dfmt(i.day, { weekday: 'short', day: 'numeric' }), i.person, i.epic].filter(Boolean).map(esc).join(' · ')}</span><span class="m">${i.impact ? days(i.impact) : ''}</span>${decision(i)}</div>`).join('') : '<div class="m" style="color:var(--muted);font-size:13px">Aucun imprévu pour l\'instant.</div>'}
+    <div class="incidents"><h3>⚡ Imprévus du sprint <span class="tag">${incs.length}</span></h3>
+      ${incs.length ? incs.map(i => `<div class="inc"><span class="t">${esc(i.title)}</span><span class="m">${[i.day && dfmt(i.day, { weekday: 'short', day: 'numeric' }), i.person, i.epic].filter(Boolean).map(esc).join(' · ')}</span><span class="m">${i.impact ? days(i.impact) : ''}</span>${decision(i)}</div>`).join('') : '<div class="m" style="color:var(--muted);font-size:13px">Aucun imprévu pour l\'instant.</div>'}
     </div></section>`;
 }
 
@@ -294,7 +308,7 @@ function epicsSection() {
 function backlogSection() {
   const bl = S.backlog.filter(inCh);
   const groups = [...new Set(bl.map(t => t.epic))].map(name => ({ name, list: bl.filter(t => t.epic === name) }));
-  const ideas = (R && R.ideas && !CH) ? R.ideas.items : [];
+  const ideas = (R && R.ideas && CH === 'Zeno') ? R.ideas.items : [];
   return `<section class="blk" id="backlog"><div class="sh"><h2>Backlog</h2><span class="meta">${bl.length} sous-sujet(s) · ${days(sum(bl, t => t.estimate))} estimés</span><p>Ce qui attend d'être planifié dans un sprint, par gros sujet.</p></div>
     <div class="backlog">${groups.map(g => `<div class="bl-g"><h4>${esc(g.name || 'Sans gros sujet')} ${g.list[0].chantier ? `<span class="tag ch">${esc(g.list[0].chantier)}</span>` : ''}</h4>
       ${g.list.map(t => `<div class="trow"><span class="t">${esc(t.title)}${t.carried_from ? ` <span class="tag warn">revenu de ${esc(t.carried_from)}</span>` : ''}${t.priority === 1 ? ' <span class="tag blk">Prioritaire</span>' : ''}</span><span class="d">${esc(t.person || '—')} · ${days(t.estimate)}</span></div>`).join('')}</div>`).join('') || '<div class="trow" style="color:var(--muted)">Backlog vide.</div>'}
@@ -303,29 +317,35 @@ function backlogSection() {
 }
 
 function historySection() {
-  const wins = R ? R.chantiers.map(c => ({ name: c.name, items: c.items.filter(i => i.status === 'fait') })).filter(c => c.items.length && (!CH || c.name === CH)) : [];
-  const nWins = sum(wins, c => c.items.length) + S.done_epics.length;
+  const wins = R ? R.chantiers.map(c => ({ name: c.name, items: c.items.filter(i => i.status === 'fait') })).filter(c => c.items.length && c.name === CH) : [];
+  const nWins = sum(wins, c => c.items.length);
   const h = S.history;
-  return `<section class="blk" id="historique"><div class="sh"><h2>Historique</h2></div>
+  return `<section class="blk" id="historique"><div class="sh"><h2>Historique</h2><p>Bilans des sprints clôturés (tous chantiers).</p></div>
     ${h.length ? `<table class="hist"><thead><tr><th>Sprint</th><th>Livrés</th><th>Engagé → livré</th><th>Imprévus</th><th>Reportés</th></tr></thead><tbody>${h.map(s => { const r = s.review || {}; return `<tr><td><b>${esc(s.name)}</b> <span style="color:var(--muted)">${dfmt(s.start)}</span></td><td class="n">${r.tasks_done ?? '—'}</td><td class="n">${days(r.engaged_days)} → ${days(r.done_days)}</td><td class="n">${r.incidents ?? 0} (${days(r.incident_days || 0)})</td><td class="n">${r.carried ?? 0} basculé(s), ${r.back_to_backlog ?? 0} au backlog</td></tr>`; }).join('')}</tbody></table>`
       : '<p style="color:var(--muted);font-size:14px;margin:0 0 14px">Le bilan de chaque sprint clôturé apparaîtra ici.</p>'}
     <div style="height:14px"></div>
-    <details class="wins"><summary>🏆 ${nWins} réalisations déjà livrées <span style="color:var(--muted);font-weight:500;font-size:13px">— afficher</span></summary>
-      <div class="wins-grid">${wins.map(c => `<h5>${esc(c.name)}</h5>${c.items.map(i => `<div>${esc(i.title)}</div>`).join('')}`).join('')}${S.done_epics.length ? `<h5>Gros sujets terminés</h5>${S.done_epics.map(n => `<div>${esc(n)}</div>`).join('')}` : ''}</div>
+    <details class="wins"><summary>🏆 ${nWins} réalisation(s) ${esc(CH)} déjà livrée(s) <span style="color:var(--muted);font-weight:500;font-size:13px">— afficher</span></summary>
+      <div class="wins-grid">${wins.map(c => `<h5>${esc(c.name)}</h5>${c.items.map(i => `<div>${esc(i.title)}</div>`).join('')}`).join('')}</div>
     </details></section>`;
 }
 
+function tabs() {
+  const live = c => S.epics.filter(e => e.chantier === c && e.status === 'actif').length;
+  $('#ctabs').innerHTML = CHANTIERS.map(c => `<button role="tab" aria-selected="${c === CH}" class="${c === CH ? 'on' : ''}" data-c="${c}">${c}<span class="n" title="gros sujets actifs">${live(c)}</span></button>`).join('');
+  $('#ctabs').querySelectorAll('button').forEach(b => b.onclick = () => {
+    CH = b.dataset.c;
+    history.replaceState(null, '', '?chantier=' + CH.toLowerCase());
+    render(); window.scrollTo({ top: 0 });
+  });
+}
 function render() {
+  document.title = CH + ' · Chantiers digitaux AEIG';
+  tabs(); header();
   $('#main').innerHTML = sprintSection() + nextSection() + epicsSection() + backlogSection() + historySection();
 }
-header();
 render();
 $('#foot').textContent = 'Mis à jour le ' + dfmt(S.updated, { day: 'numeric', month: 'long', year: 'numeric' }) + ' · sprints d\'une semaine, charge estimée en jours.';
-document.querySelectorAll('#chf button').forEach(b => b.onclick = () => {
-  CH = b.dataset.c;
-  document.querySelectorAll('#chf button').forEach(x => x.classList.toggle('on', x === b));
-  render();
-});
+
 </script>
 </body>
 </html>
