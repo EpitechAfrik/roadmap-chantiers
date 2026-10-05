@@ -1,34 +1,25 @@
 # Chantiers digitaux AEIG
 
-Page de suivi des chantiers (Odoo, Zeno, Mydocs) : ce qui est fait, en cours, à venir.
-Site statique, sans build : `index.html` (mise en page) + `data.js` (contenu).
+Page de pilotage des chantiers (Odoo, Zeno, Mydocs) : **sprint en cours**, sprint suivant,
+gros sujets et deadlines, backlog, historique. Site statique publié par GitHub Pages.
 
-## Mettre à jour
+## D'où viennent les données
 
-Tout le contenu est dans **`data.js`**. Pour un sujet :
+| Fichier | Contenu | Mise à jour |
+|---|---|---|
+| `sprints.js` | sprints, gros sujets, backlog, imprévus | **généré** par le tableau de bord local (onglet *Sprints* → *Publier sur la page*) — ne pas modifier à la main |
+| `data.js` | réalisations déjà livrées et pistes à cadrer | à la main, rarement |
 
-```js
-{ title: "Gestion du courrier", period: "octobre", status: "en_cours", owner: "Pissano",
-  update: "Cahier des charges validé, développement démarré." }
-```
+## Fonctionnement des sprints
 
-- `status` : `fait` · `en_cours` · `en_attente` · `a_venir` · `bloque` · `a_preciser` · `annule`
-- `label` (optionnel) : libellé affiché à la place du statut standard (ex. `"En finalisation"`, `"Vigilance"`)
-- `update` : ce qui a bougé récemment, en une phrase
-- `blocker` : affiché en rouge
-- `details` : sous-sujets dépliables `[{ text, status }]`
-
-Pensez à changer `updated` (date en haut de la page) à chaque mise à jour, puis commit + push :
-GitHub Pages republie automatiquement en une minute environ.
+- Un sprint dure **une semaine** (lundi → vendredi), avec un objectif et une **capacité en jours par personne**.
+- Les sous-sujets sont estimés en jours ; on ne s'engage pas sur plus que la capacité.
+- Un **imprévu** est soit *traité dans le sprint* (il consomme de la capacité), soit *basculé au sprint suivant*
+  (il devient un sous-sujet du prochain sprint).
+- À la clôture, chaque sous-sujet non fini est basculé au sprint suivant (« reporté de Sxx ») ou renvoyé au backlog.
 
 ## Aperçu en local
 
 ```bash
 python3 -m http.server 8799
 ```
-
-puis ouvrir http://localhost:8799
-
-## Publication (GitHub Pages)
-
-Settings → Pages → Source : *Deploy from a branch* → branche `main`, dossier `/ (root)`.

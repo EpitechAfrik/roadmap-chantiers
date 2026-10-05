@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chantiers digitaux AEIG</title>
-<meta name="description" content="Roadmap des chantiers digitaux AEIG : ce qui est livré, ce qui avance, ce qui arrive.">
+<meta name="description" content="Pilotage des chantiers digitaux AEIG : sprint en cours, gros sujets et deadlines, backlog.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,14 +12,14 @@
 <style>
 :root {
   color-scheme: light;
-  --navy: #0f1e3d; --navy-2: #1a2c55; --amber: #f59e0b; --amber-soft: #fef3c7;
+  --navy: #0f1e3d; --amber: #f59e0b; --amber-soft: #fef3c7;
   --bg: #f5f6f8; --surface: #ffffff; --surface-2: #f0f2f5; --border: #e3e6eb;
   --text: #0f172a; --text-2: #475569; --muted: #8a94a6;
   --fait: #12a26b; --fait-bg: #e3f6ee;
   --cours: #2a78d6; --cours-bg: #e4effc;
   --venir: #7a8496; --venir-bg: #eef0f3;
   --bloque: #d93b3b; --bloque-bg: #fdecec;
-  --preciser: #b7791f; --preciser-bg: #fdf3e1;
+  --warn: #b45309; --warn-bg: #fdf3e1;
   --attente: #7c5cc4; --attente-bg: #f0ebfa;
   --shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 2px 8px rgba(15, 23, 42, .04);
   --radius: 14px;
@@ -29,308 +29,303 @@
     color-scheme: dark;
     --bg: #0b1222; --surface: #121b2e; --surface-2: #1a2438; --border: #243049;
     --text: #eef2f8; --text-2: #b4bdcc; --muted: #7d889c;
-    --fait: #34c48b; --fait-bg: #12322a;
-    --cours: #5aa0f0; --cours-bg: #142a47;
-    --venir: #9aa3b3; --venir-bg: #1f2a3d;
-    --bloque: #f07070; --bloque-bg: #3a1d22;
-    --preciser: #e3a548; --preciser-bg: #3a2c14;
-    --attente: #a98ef0; --attente-bg: #2a2142;
-    --amber-soft: #3a2c14;
-    --shadow: none;
+    --fait: #34c48b; --fait-bg: #12322a; --cours: #5aa0f0; --cours-bg: #142a47;
+    --venir: #9aa3b3; --venir-bg: #1f2a3d; --bloque: #f07070; --bloque-bg: #3a1d22;
+    --warn: #e3a548; --warn-bg: #3a2c14; --attente: #a98ef0; --attente-bg: #2a2142;
+    --amber-soft: #3a2c14; --shadow: none;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
   --bg: #0b1222; --surface: #121b2e; --surface-2: #1a2438; --border: #243049;
   --text: #eef2f8; --text-2: #b4bdcc; --muted: #7d889c;
-  --fait: #34c48b; --fait-bg: #12322a;
-  --cours: #5aa0f0; --cours-bg: #142a47;
-  --venir: #9aa3b3; --venir-bg: #1f2a3d;
-  --bloque: #f07070; --bloque-bg: #3a1d22;
-  --preciser: #e3a548; --preciser-bg: #3a2c14;
-  --attente: #a98ef0; --attente-bg: #2a2142;
-  --amber-soft: #3a2c14;
-  --shadow: none;
+  --fait: #34c48b; --fait-bg: #12322a; --cours: #5aa0f0; --cours-bg: #142a47;
+  --venir: #9aa3b3; --venir-bg: #1f2a3d; --bloque: #f07070; --bloque-bg: #3a1d22;
+  --warn: #e3a548; --warn-bg: #3a2c14; --attente: #a98ef0; --attente-bg: #2a2142;
+  --amber-soft: #3a2c14; --shadow: none;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
 body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
 .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+@media (max-width: 600px) { .wrap { padding: 0 16px; } }
 
-/* ---------- hero ---------- */
-.hero { background: var(--navy); color: #fff; padding: 44px 0 36px; position: relative; overflow: hidden; }
-.hero::after { content: ""; position: absolute; right: -120px; top: -160px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(245,158,11,.22), rgba(245,158,11,0) 70%); pointer-events: none; }
+/* ---------- en-tête : le sprint en cours ---------- */
+.hero { background: var(--navy); color: #fff; padding: 36px 0 30px; position: relative; overflow: hidden; }
+.hero::after { content: ""; position: absolute; right: -140px; top: -180px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(245,158,11,.20), rgba(245,158,11,0) 70%); pointer-events: none; }
+.hero .wrap { position: relative; z-index: 1; }
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); }
 .eyebrow::before { content: ""; width: 18px; height: 2px; background: var(--amber); border-radius: 2px; }
-.hero h1 { font-size: clamp(28px, 4.2vw, 44px); line-height: 1.1; margin: 12px 0 8px; font-weight: 800; letter-spacing: -.02em; }
-.hero p.sub { margin: 0; color: #c7d0e3; font-size: 17px; max-width: 640px; }
-.hero .updated { margin-top: 14px; font-size: 13px; color: #94a3c4; }
-.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 30px; position: relative; z-index: 1; }
-.stat { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10); border-radius: 12px; padding: 14px 16px; }
-.stat .n { font-size: 30px; font-weight: 800; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-.stat .l { margin-top: 6px; font-size: 13px; color: #c7d0e3; display: flex; align-items: center; gap: 7px; }
-.stat .l i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-.globalbar { margin-top: 18px; display: flex; height: 8px; border-radius: 99px; overflow: hidden; gap: 2px; background: rgba(255,255,255,.08); position: relative; z-index: 1; }
-.globalbar span { display: block; height: 100%; }
-@media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+.hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: end; margin-top: 10px; }
+@media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; gap: 22px; } }
+.hero h1 { font-size: clamp(30px, 4.4vw, 46px); line-height: 1.05; margin: 0; font-weight: 800; letter-spacing: -.02em; }
+.hero h1 small { display: block; font-size: 15px; font-weight: 600; color: #94a3c4; letter-spacing: 0; margin-top: 8px; }
+.goal { margin-top: 16px; font-size: 18px; color: #e6ebf5; max-width: 620px; }
+.goal.empty { color: #94a3c4; font-style: italic; font-size: 15px; }
+.kpis { display: flex; gap: 22px; margin-top: 18px; flex-wrap: wrap; }
+.kpis div { font-size: 13px; color: #c7d0e3; }
+.kpis b { display: block; font-size: 24px; color: #fff; font-weight: 800; font-variant-numeric: tabular-nums; }
+.loadbox { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10); border-radius: 14px; padding: 16px 18px; }
+.loadbox h3 { margin: 0 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: #94a3c4; }
+.lrow { display: grid; grid-template-columns: 90px 1fr 92px; gap: 10px; align-items: center; margin: 7px 0; font-size: 13.5px; }
+.lbar { height: 8px; border-radius: 99px; background: rgba(255,255,255,.10); overflow: hidden; }
+.lbar span { display: block; height: 100%; border-radius: 99px; background: var(--amber); }
+.lbar.over span { background: #f87171; }
+.lrow .v { text-align: right; color: #c7d0e3; font-variant-numeric: tabular-nums; font-size: 12.5px; }
+.lrow .v.over { color: #fca5a5; font-weight: 700; }
+.loadbox .note { font-size: 12px; color: #94a3c4; margin-top: 8px; }
 
-/* ---------- barre de navigation ---------- */
+/* ---------- navigation ---------- */
 .bar { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--border); }
-.bar .wrap { display: flex; align-items: center; gap: 12px; padding-top: 12px; padding-bottom: 12px; flex-wrap: wrap; }
-.tabs { display: flex; gap: 4px; flex-wrap: wrap; }
-.tabs a { text-decoration: none; color: var(--text-2); font-weight: 600; font-size: 14px; padding: 7px 12px; border-radius: 9px; }
+.bar .wrap { display: flex; align-items: center; gap: 12px; padding-top: 10px; padding-bottom: 10px; flex-wrap: wrap; }
+.tabs { display: flex; gap: 2px; flex-wrap: wrap; }
+.tabs a { text-decoration: none; color: var(--text-2); font-weight: 600; font-size: 14px; padding: 7px 11px; border-radius: 9px; }
 .tabs a:hover { background: var(--surface-2); color: var(--text); }
 .spacer { flex: 1; }
 .seg { display: flex; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 3px; gap: 2px; }
 .seg button { border: 0; background: none; font: inherit; font-size: 13px; font-weight: 600; color: var(--text-2); padding: 5px 11px; border-radius: 7px; cursor: pointer; }
 .seg button.on { background: var(--navy); color: #fff; }
-.search { position: relative; }
-.search input { font: inherit; font-size: 14px; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 7px 12px 7px 32px; width: 220px; }
-.search input:focus { outline: 2px solid var(--amber); outline-offset: -1px; }
-.search svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--muted); }
-@media (max-width: 720px) { .search input { width: 100%; } .search { flex: 1 1 100%; } }
 
-/* ---------- chantiers ---------- */
-main { padding: 32px 0 64px; }
-.chantier { margin-bottom: 52px; }
-.ch-head { display: grid; grid-template-columns: 1fr 380px; gap: 24px; align-items: start; margin-bottom: 20px; }
-@media (max-width: 900px) { .ch-head { grid-template-columns: 1fr; } }
-.ch-head h2 { font-size: 30px; margin: 0; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: baseline; gap: 12px; }
-.ch-head h2 small { font-size: 14px; color: var(--muted); font-weight: 600; letter-spacing: 0; }
-.ch-head .tag { color: var(--text-2); margin: 4px 0 14px; }
-.progress { display: flex; height: 10px; border-radius: 99px; overflow: hidden; gap: 2px; background: var(--surface-2); }
-.progress span { display: block; height: 100%; }
-.legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; font-size: 12.5px; color: var(--text-2); }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
-.legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-.highlights { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--amber); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); }
-.highlights h3 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
-.highlights ul { margin: 0; padding-left: 18px; }
-.highlights li { margin: 0 0 4px; font-size: 14px; }
+/* ---------- sections ---------- */
+main { padding: 30px 0 60px; }
+section.blk { margin-bottom: 46px; }
+.sh { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.sh h2 { font-size: 24px; margin: 0; font-weight: 800; letter-spacing: -.015em; }
+.sh .meta { color: var(--muted); font-size: 13.5px; font-weight: 600; }
+.sh p { flex-basis: 100%; margin: 0; color: var(--text-2); font-size: 14px; }
 
-.board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
-.board.cols-1 { grid-template-columns: 1fr; }
-.board.cols-2 { grid-template-columns: repeat(2, 1fr); }
-.board.cols-4 { grid-template-columns: repeat(4, 1fr); gap: 12px; }
-@media (max-width: 1180px) { .board.cols-4 { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 980px) { .board, .board.cols-2 { grid-template-columns: 1fr; } }
-@media (max-width: 980px) { .board.cols-4 { grid-template-columns: 1fr; } }
-.col { background: var(--surface-2); border-radius: var(--radius); padding: 12px; }
-.col-head { display: flex; align-items: center; gap: 8px; padding: 4px 6px 12px; font-weight: 700; font-size: 14px; }
-.col-head .ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; }
-.col-head .cnt { margin-left: auto; font-size: 12.5px; color: var(--muted); font-weight: 600; background: var(--surface); border-radius: 99px; padding: 1px 9px; }
-.col .empty { color: var(--muted); font-size: 13px; padding: 6px 8px 10px; }
-
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 13px 14px; margin-bottom: 10px; box-shadow: var(--shadow); }
+.board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: start; }
+@media (max-width: 900px) { .board { grid-template-columns: 1fr; } }
+.col { background: var(--surface-2); border-radius: var(--radius); padding: 10px; }
+.col-head { display: flex; align-items: center; gap: 8px; padding: 4px 6px 10px; font-weight: 700; font-size: 14px; }
+.col-head .ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; }
+.col-head .cnt { margin-left: auto; font-size: 12.5px; color: var(--muted); font-weight: 600; }
+.col.done .card { opacity: .78; }
+.col .empty { color: var(--muted); font-size: 13px; padding: 4px 8px 8px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 11px; padding: 11px 13px; margin-bottom: 8px; box-shadow: var(--shadow); }
 .card:last-child { margin-bottom: 0; }
-.card .phase { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: .02em; margin-bottom: 4px; }
-.card h4 { margin: 0; font-size: 15px; font-weight: 650; line-height: 1.35; }
-.card .meta { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12.5px; color: var(--text-2); }
-.card .meta b { font-weight: 600; color: var(--text); }
-.card .upd { margin-top: 8px; font-size: 13.5px; color: var(--text); line-height: 1.45; }
-.card .note { margin-top: 6px; font-size: 12.5px; color: var(--muted); }
-.card .blocker { margin-top: 8px; font-size: 12.5px; color: var(--bloque); background: var(--bloque-bg); border-radius: 8px; padding: 6px 9px; display: flex; gap: 6px; }
-.card.annule h4 { text-decoration: line-through; color: var(--muted); }
-.pill { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; padding: 2px 9px; border-radius: 99px; margin-bottom: 6px; }
-.pill i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; display: inline-block; }
-details { margin-top: 10px; border-top: 1px dashed var(--border); padding-top: 8px; }
-summary { cursor: pointer; font-size: 12.5px; font-weight: 600; color: var(--text-2); list-style: none; display: flex; align-items: center; gap: 6px; }
-summary::-webkit-details-marker { display: none; }
-summary::before { content: "›"; display: inline-block; transition: transform .15s; font-size: 15px; line-height: 1; }
-details[open] summary::before { transform: rotate(90deg); }
-.sub { list-style: none; margin: 8px 0 0; padding: 0; }
-.sub li { display: flex; gap: 8px; font-size: 13px; padding: 3px 0; color: var(--text-2); }
-.sub li .m { flex: none; width: 16px; text-align: center; font-weight: 700; }
-.sub li.fait { color: var(--text); }
+.card h4 { margin: 0 0 6px; font-size: 14.5px; font-weight: 650; line-height: 1.35; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.tag { font-size: 11.5px; font-weight: 600; padding: 1px 8px; border-radius: 99px; background: var(--surface-2); color: var(--text-2); white-space: nowrap; }
+.tag.ch { background: transparent; border: 1px solid var(--border); }
+.tag.warn { background: var(--warn-bg); color: var(--warn); }
+.tag.att { background: var(--attente-bg); color: var(--attente); }
+.tag.blk { background: var(--bloque-bg); color: var(--bloque); }
+.tag.ok { background: var(--fait-bg); color: var(--fait); }
+.tag.cours { background: var(--cours-bg); color: var(--cours); }
+.who { margin-top: 7px; display: flex; justify-content: space-between; font-size: 12.5px; color: var(--text-2); }
+.who b { color: var(--text); font-weight: 600; }
 
-/* ---------- pistes ---------- */
-.ideas { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow); }
-.ideas h2 { margin: 0 0 4px; font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
-.ideas p { margin: 0 0 14px; color: var(--text-2); font-size: 14px; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chips span { background: var(--surface-2); border: 1px solid var(--border); border-radius: 99px; padding: 6px 12px; font-size: 13.5px; }
+.incidents { margin-top: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.incidents h3 { margin: 0 0 8px; font-size: 14px; display: flex; gap: 8px; align-items: center; }
+.inc { display: flex; gap: 10px; align-items: center; padding: 7px 0; border-top: 1px solid var(--surface-2); font-size: 13.5px; flex-wrap: wrap; }
+.inc:first-of-type { border-top: 0; }
+.inc .t { flex: 1 1 260px; font-weight: 600; }
+.inc .m { color: var(--muted); font-size: 12.5px; }
 
-footer { border-top: 1px solid var(--border); padding: 22px 0 40px; color: var(--muted); font-size: 13px; }
-footer .wrap { display: flex; gap: 16px; flex-wrap: wrap; justify-content: space-between; }
-.noresult { text-align: center; color: var(--muted); padding: 40px 0; display: none; }
-mark { background: var(--amber-soft); color: inherit; border-radius: 3px; padding: 0 1px; }
+.next { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.trow { display: flex; gap: 10px; align-items: center; padding: 7px 0; border-top: 1px solid var(--surface-2); font-size: 13.5px; flex-wrap: wrap; }
+.trow:first-child { border-top: 0; }
+.trow .t { flex: 1 1 260px; }
+.trow .e { color: var(--muted); font-size: 12.5px; }
+.trow .d { font-variant-numeric: tabular-nums; color: var(--text-2); font-size: 12.5px; white-space: nowrap; }
+
+.epics { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
+.epic { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 15px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+.epic.hot { border-color: color-mix(in srgb, var(--amber) 55%, var(--border)); }
+.epic h4 { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.3; }
+.epic .desc { font-size: 13px; color: var(--text-2); }
+.epic .who { margin-top: 0; }
+.prog { height: 6px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
+.prog span { display: block; height: 100%; background: var(--fait); border-radius: 99px; }
+.dl { font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+.dl.late { color: var(--bloque); }
+.dl.soon { color: var(--warn); }
+.dl.none { color: var(--muted); font-weight: 500; }
+.subh { margin: 22px 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 700; }
+
+.backlog { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 6px 16px 12px; box-shadow: var(--shadow); }
+.bl-g { padding-top: 10px; }
+.bl-g h4 { margin: 0 0 2px; font-size: 13.5px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ideas { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.ideas span { background: var(--surface-2); border: 1px solid var(--border); border-radius: 99px; padding: 4px 11px; font-size: 13px; }
+
+table.hist { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: 13.5px; }
+table.hist th, table.hist td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--surface-2); }
+table.hist th { color: var(--muted); font-weight: 600; font-size: 12px; }
+table.hist td.n { font-variant-numeric: tabular-nums; }
+
+details.wins { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; }
+details.wins summary { cursor: pointer; font-weight: 600; font-size: 14.5px; list-style: none; display: flex; gap: 10px; align-items: center; }
+details.wins summary::-webkit-details-marker { display: none; }
+details.wins summary::before { content: "›"; transition: transform .15s; font-size: 18px; line-height: 1; color: var(--muted); }
+details.wins[open] summary::before { transform: rotate(90deg); }
+.wins-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 4px 20px; margin-top: 12px; }
+.wins-grid h5 { grid-column: 1 / -1; margin: 10px 0 2px; font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+.wins-grid div { font-size: 13px; color: var(--text-2); padding: 2px 0; }
+.wins-grid div::before { content: "✓ "; color: var(--fait); font-weight: 700; }
+
+footer { border-top: 1px solid var(--border); padding: 20px 0 36px; color: var(--muted); font-size: 13px; }
 .hidden { display: none !important; }
-@media (max-width: 600px) { .wrap { padding: 0 16px; } .hero { padding: 32px 0 28px; } }
-@media print {
-  .bar { display: none; }
-  .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .card, .col { break-inside: avoid; }
-}
+@media print { .bar { display: none; } .hero { print-color-adjust: exact; -webkit-print-color-adjust: exact; } .card, .epic { break-inside: avoid; } }
 </style>
 </head>
 <body>
 <header class="hero">
   <div class="wrap">
-    <span class="eyebrow">Roadmap</span>
-    <h1 id="title"></h1>
-    <p class="sub" id="subtitle"></p>
-    <div class="updated" id="updated"></div>
-    <div class="stats" id="stats"></div>
-    <div class="globalbar" id="globalbar" aria-hidden="true"></div>
+    <span class="eyebrow">Chantiers digitaux AEIG</span>
+    <div class="hero-grid">
+      <div>
+        <h1 id="spName"></h1>
+        <div class="goal" id="spGoal"></div>
+        <div class="kpis" id="spKpis"></div>
+      </div>
+      <div class="loadbox" id="spLoad"></div>
+    </div>
   </div>
 </header>
 
 <nav class="bar" aria-label="Navigation">
   <div class="wrap">
-    <div class="tabs" id="tabs"></div>
-    <div class="spacer"></div>
-    <div class="seg" id="filter" role="group" aria-label="Filtrer par statut">
-      <button data-f="all" class="on">Tout</button>
-      <button data-f="fait">Fait</button>
-      <button data-f="en_cours">En cours</button>
-      <button data-f="a_venir">À venir</button>
-      <button data-f="en_attente">En attente</button>
+    <div class="tabs">
+      <a href="#sprint">Sprint en cours</a><a href="#suivant">Sprint suivant</a><a href="#sujets">Gros sujets</a><a href="#backlog">Backlog</a><a href="#historique">Historique</a>
     </div>
-    <label class="search">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="Rechercher un sujet, une personne…" aria-label="Rechercher">
-    </label>
+    <div class="spacer"></div>
+    <div class="seg" id="chf" role="group" aria-label="Filtrer par chantier">
+      <button data-c="" class="on">Tous</button><button data-c="Odoo">Odoo</button><button data-c="Zeno">Zeno</button><button data-c="Mydocs">Mydocs</button>
+    </div>
   </div>
 </nav>
 
-<main class="wrap">
-  <div id="chantiers"></div>
-  <div class="noresult" id="noresult">Aucun sujet ne correspond à ta recherche.</div>
-  <section class="ideas" id="pistes"></section>
-</main>
+<main class="wrap" id="main"></main>
 
-<footer>
-  <div class="wrap">
-    <span id="source"></span>
-    <span>Statuts : ✓ fait · ◐ en cours · ○ à venir · ⏸ en attente · ⚠ bloqué / vigilance · ? à préciser</span>
-  </div>
-</footer>
+<footer><div class="wrap" id="foot"></div></footer>
 
-<script>document.write('<script src="data.js?v=' + Date.now() + '"><\/script>');</script>
 <script>
-const D = window.ROADMAP;
+document.write('<script src="sprints.js?v=' + Date.now() + '"><\/script><script src="data.js?v=' + Date.now() + '"><\/script>');
+</script>
+<script>
+const S = window.SPRINTS, R = window.ROADMAP;
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const days = n => n == null ? 'à estimer' : String(+n).replace('.', ',') + ' j';
+const sum = (l, f) => l.reduce((a, x) => a + (f(x) || 0), 0);
+const dfmt = (d, o = { day: 'numeric', month: 'short' }) => new Date(d + 'T12:00').toLocaleDateString('fr-FR', o);
+let CH = '';
+const inCh = x => !CH || x.chantier === CH;
 
-const ST = {
-  fait:       { label: 'Fait',       color: 'var(--fait)',     bg: 'var(--fait-bg)',     mark: '✓' },
-  en_cours:   { label: 'En cours',   color: 'var(--cours)',    bg: 'var(--cours-bg)',    mark: '◐' },
-  a_venir:    { label: 'À venir',    color: 'var(--venir)',    bg: 'var(--venir-bg)',    mark: '○' },
-  bloque:     { label: 'Bloqué',     color: 'var(--bloque)',   bg: 'var(--bloque-bg)',   mark: '⚠' },
-  a_preciser: { label: 'À préciser', color: 'var(--preciser)', bg: 'var(--preciser-bg)', mark: '?' },
-  en_attente: { label: 'En attente', color: 'var(--attente)',  bg: 'var(--attente-bg)',  mark: '⏸' },
-  annule:     { label: 'Annulé',     color: 'var(--muted)',    bg: 'var(--surface-2)',   mark: '×' },
-};
-// colonnes du tableau : bloqué, à préciser et annulé rejoignent « À venir » (en fin de liste)
-const COLS = [
-  { key: 'fait', title: 'Fait', statuses: ['fait'] },
-  { key: 'en_cours', title: 'En cours', statuses: ['en_cours'] },
-  { key: 'a_venir', title: 'À venir & points d\'attention', statuses: ['bloque', 'a_preciser', 'a_venir', 'annule'] },
-  { key: 'en_attente', title: 'En attente', statuses: ['en_attente'], optional: true },
-];
-const ORDER = { bloque: 0, a_preciser: 1, a_venir: 2, en_attente: 3, annule: 4 };
-
-function counts(items) {
-  const c = { fait: 0, en_cours: 0, a_venir: 0, bloque: 0, a_preciser: 0, en_attente: 0, annule: 0 };
-  items.forEach(i => c[i.status]++);
-  return c;
-}
-function bar(c, total) {
-  return ['fait', 'en_cours', 'bloque', 'a_preciser', 'a_venir', 'en_attente'].filter(k => c[k])
-    .map(k => `<span style="width:${100 * c[k] / total}%;background:${ST[k].color}" title="${ST[k].label} : ${c[k]}"></span>`).join('');
-}
-function longDate(iso) { return new Date(iso + 'T12:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }); }
-
-/* ---------- en-tête ---------- */
-document.title = D.title;
-$('#title').textContent = D.title;
-$('#subtitle').textContent = D.subtitle;
-$('#updated').textContent = 'Mis à jour le ' + longDate(D.updated);
-$('#source').textContent = D.source;
-const all = D.chantiers.flatMap(c => c.items.filter(i => i.status !== 'annule'));
-const g = counts(all);
-$('#stats').innerHTML = [
-  ['fait', 'Faits', g.fait],
-  ['en_cours', 'En cours', g.en_cours],
-  ['a_venir', 'À venir · en attente', g.a_venir + g.a_preciser + g.en_attente],
-  ['bloque', 'Bloqués / vigilance', g.bloque],
-].map(([k, l, n]) => `<div class="stat"><div class="n">${n}</div><div class="l"><i style="background:${k === 'a_venir' ? '#9aa3b3' : ST[k].color}"></i>${l}</div></div>`).join('');
-$('#globalbar').innerHTML = bar(g, all.length);
-$('#tabs').innerHTML = D.chantiers.map(c => `<a href="#${c.id}">${esc(c.name)}</a>`).join('') + `<a href="#pistes">Pistes</a>`;
-
-/* ---------- chantiers ---------- */
-let filter = 'all', query = '';
-const norm = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-const hay = i => norm([i.title, i.phase, i.period, i.owner, i.contact, i.support, i.update, i.note, i.blocker, ...(i.details || []).map(d => d.text)].join(' '));
-function hl(text) {
-  if (!query) return esc(text);
-  const t = String(text ?? ''), n = norm(t), q = norm(query), idx = n.indexOf(q);
-  return idx < 0 ? esc(t) : esc(t.slice(0, idx)) + '<mark>' + esc(t.slice(idx, idx + q.length)) + '</mark>' + esc(t.slice(idx + q.length));
+function deadline(d) {
+  if (!d) return '<span class="dl none">Deadline à définir</span>';
+  const n = Math.round((new Date(d + 'T12:00') - new Date()) / 86400000);
+  return n < 0 ? `<span class="dl late">⚠ ${dfmt(d)} · dépassée</span>` : n <= 14 ? `<span class="dl soon">${dfmt(d)} · J-${n}</span>` : `<span class="dl">${dfmt(d)}</span>`;
 }
 
-function card(i) {
-  const s = ST[i.status];
-  const showPill = i.label || !['fait', 'en_cours', 'a_venir'].includes(i.status);
-  const people = [i.owner && `Porteur <b>${hl(i.owner)}</b>`, i.contact && `Interlocuteur <b>${hl(i.contact)}</b>`].filter(Boolean).join(' · ');
-  const d = i.details || [], dDone = d.filter(x => x.status === 'fait').length, dCur = d.filter(x => x.status === 'en_cours').length;
-  return `<article class="card ${i.status}">
-    ${i.phase ? `<div class="phase">${esc(i.phase)}</div>` : ''}
-    ${showPill ? `<span class="pill" style="color:${s.color};background:${s.bg}"><i></i>${esc(i.label || s.label)}</span>` : ''}
-    <h4>${hl(i.title)}</h4>
-    <div class="meta">${i.period ? `<span>${hl(i.period)}</span>` : ''}${people ? `<span>${people}</span>` : ''}</div>
-    ${i.update ? `<div class="upd">${hl(i.update)}</div>` : ''}
-    ${i.blocker ? `<div class="blocker"><span>⚠</span><span>${hl(i.blocker)}</span></div>` : ''}
-    ${i.note ? `<div class="note">${hl(i.note)}</div>` : ''}
-    ${d.length ? `<details ${query && d.some(x => norm(x.text).includes(norm(query))) ? 'open' : ''}><summary>${d.length} sous-sujets · ${dDone} fait${dDone > 1 ? 's' : ''}${dCur ? ` · ${dCur} en cours` : ''}</summary>
-      <ul class="sub">${d.map(x => `<li class="${x.status}"><span class="m" style="color:${ST[x.status].color}">${ST[x.status].mark}</span><span>${hl(x.text)}</span></li>`).join('')}</ul></details>` : ''}
-  </article>`;
+function header() {
+  const s = S.current;
+  if (!s) { $('#spName').textContent = 'Pas de sprint en cours'; return; }
+  $('#spName').innerHTML = `Sprint ${esc(s.name.replace('S', ''))}<small>${dfmt(s.start, { weekday: 'long', day: 'numeric', month: 'long' })} → ${dfmt(s.end, { weekday: 'long', day: 'numeric', month: 'long' })}</small>`;
+  $('#spGoal').className = 'goal' + (s.goal ? '' : ' empty');
+  $('#spGoal').textContent = s.goal || 'Objectif du sprint à définir.';
+  const done = s.tasks.filter(t => t.status === 'fait').length;
+  $('#spKpis').innerHTML = [
+    [s.tasks.length, 'sous-sujets engagés'], [done, 'livrés'],
+    [s.incidents.length, 'imprévus'], [s.tasks.filter(t => t.carried_from).length, 'reportés'],
+  ].map(([n, l]) => `<div><b>${n}</b>${l}</div>`).join('');
+  const people = [...new Set([...Object.keys(s.capacity), ...Object.keys(s.load)])];
+  $('#spLoad').innerHTML = `<h3>Charge engagée / capacité</h3>` + people.map(p => {
+    const cap = s.capacity[p] || 0, l = s.load[p] || 0, over = l > cap;
+    return `<div class="lrow"><span>${esc(p)}</span><div class="lbar ${over ? 'over' : ''}"><span style="width:${Math.min(100, 100 * l / Math.max(cap, .5))}%"></span></div><span class="v ${over ? 'over' : ''}">${String(l).replace('.', ',')} / ${String(cap).replace('.', ',')} j</span></div>`;
+  }).join('') + `<div class="note">On ne s'engage pas sur plus que la capacité de la semaine. Les imprévus traités comptent dans la charge.</div>`;
+}
+
+function taskCard(t) {
+  return `<div class="card"><h4>${esc(t.title)}</h4>
+    <div class="tags">${t.epic ? `<span class="tag">${esc(t.epic)}</span>` : ''}${t.chantier ? `<span class="tag ch">${esc(t.chantier)}</span>` : ''}${t.carried_from ? `<span class="tag warn">reporté de ${esc(t.carried_from)}</span>` : ''}${t.from_incident ? '<span class="tag warn">imprévu</span>' : ''}</div>
+    <div class="who"><span>${t.person ? `<b>${esc(t.person)}</b>` : 'Non attribué'}</span><span>${days(t.estimate)}</span></div></div>`;
+}
+
+function sprintSection() {
+  const s = S.current;
+  if (!s) return '';
+  const ts = s.tasks.filter(inCh);
+  const cols = [['a_faire', 'À faire', '○', 'var(--venir)', 'var(--venir-bg)'], ['en_cours', 'En cours', '◐', 'var(--cours)', 'var(--cours-bg)'], ['fait', 'Fait', '✓', 'var(--fait)', 'var(--fait-bg)']];
+  const decision = i => i.decision === 'traite' ? '<span class="tag ok">Traité dans le sprint</span>' : i.decision === 'bascule' ? '<span class="tag cours">Basculé au sprint suivant</span>' : '<span class="tag warn">À qualifier</span>';
+  return `<section class="blk" id="sprint">
+    <div class="sh"><h2>Sprint en cours</h2><span class="meta">${ts.length} sous-sujet(s) · ${days(sum(ts, t => t.estimate))}</span></div>
+    <div class="board">${cols.map(([k, l, ic, c, bg]) => {
+      const list = ts.filter(t => t.status === k);
+      return `<div class="col ${k === 'fait' ? 'done' : ''}"><div class="col-head"><span class="ic" style="color:${c};background:${bg}">${ic}</span>${l}<span class="cnt">${list.length}</span></div>${list.length ? list.map(taskCard).join('') : '<div class="empty">—</div>'}</div>`;
+    }).join('')}</div>
+    <div class="incidents"><h3>⚡ Imprévus du sprint <span class="tag">${s.incidents.length}</span></h3>
+      ${s.incidents.length ? s.incidents.map(i => `<div class="inc"><span class="t">${esc(i.title)}</span><span class="m">${[i.day && dfmt(i.day, { weekday: 'short', day: 'numeric' }), i.person, i.epic].filter(Boolean).map(esc).join(' · ')}</span><span class="m">${i.impact ? days(i.impact) : ''}</span>${decision(i)}</div>`).join('') : '<div class="m" style="color:var(--muted);font-size:13px">Aucun imprévu pour l\'instant.</div>'}
+    </div></section>`;
+}
+
+function nextSection() {
+  const n = S.next;
+  if (!n) return `<section class="blk" id="suivant"><div class="sh"><h2>Sprint suivant</h2><p>Pas encore planifié.</p></div></section>`;
+  const ts = n.tasks.filter(inCh);
+  return `<section class="blk" id="suivant"><div class="sh"><h2>Sprint suivant · ${esc(n.name)}</h2><span class="meta">${dfmt(n.start)} → ${dfmt(n.end)} · ${ts.length} sous-sujet(s) · ${days(sum(ts, t => t.estimate))}</span>${n.goal ? `<p>${esc(n.goal)}</p>` : ''}</div>
+    <div class="next">${ts.length ? ts.map(t => `<div class="trow"><span class="t">${esc(t.title)} ${t.carried_from ? `<span class="tag warn">reporté de ${esc(t.carried_from)}</span>` : ''}${t.from_incident ? '<span class="tag warn">imprévu</span>' : ''}</span><span class="e">${esc(t.epic || '')}</span><span class="d">${esc(t.person || '—')} · ${days(t.estimate)}</span></div>`).join('') : '<div class="trow" style="color:var(--muted)">Rien de planifié pour l\'instant.</div>'}</div></section>`;
+}
+
+function epicCard(e) {
+  const pct = e.days_total ? 100 * e.days_done / e.days_total : (e.tasks_total ? 100 * e.tasks_done / e.tasks_total : 0);
+  const st = { bloque: '<span class="tag blk">Bloqué</span>', en_attente: '<span class="tag att">En attente</span>', a_venir: '<span class="tag">À venir</span>' }[e.status] || '';
+  return `<div class="epic ${e.in_sprint ? 'hot' : ''}">
+    <div class="tags"><span class="tag ch">${esc(e.chantier)}</span>${st}${e.in_sprint ? '<span class="tag cours">Dans le sprint</span>' : ''}<span class="spacer"></span>${deadline(e.deadline)}</div>
+    <h4>${esc(e.name)}</h4>
+    ${e.description ? `<div class="desc">${esc(e.description)}</div>` : ''}
+    ${e.tasks_total ? `<div class="prog"><span style="width:${pct}%"></span></div><div class="who"><span>${e.tasks_done}/${e.tasks_total} sous-sujets faits</span><span>${e.days_total ? `${String(e.days_done).replace('.', ',')} / ${days(e.days_total)}` : ''}</span></div>` : ''}
+    ${e.owner || e.contact ? `<div class="who"><span>${e.owner ? `Porteur <b>${esc(e.owner)}</b>` : ''}</span><span>${esc(e.contact || '')}</span></div>` : ''}
+  </div>`;
+}
+
+function epicsSection() {
+  const all = S.epics.filter(inCh);
+  const active = all.filter(e => e.status === 'actif').sort((a, b) => (b.in_sprint - a.in_sprint) || (a.deadline || '9999').localeCompare(b.deadline || '9999'));
+  const coming = all.filter(e => e.status === 'a_venir' || e.status === 'bloque').sort((a, b) => (a.status === 'bloque' ? -1 : 0) - (b.status === 'bloque' ? -1 : 0));
+  const waiting = all.filter(e => e.status === 'en_attente');
+  const g = (title, l) => l.length ? `<div class="subh">${title} · ${l.length}</div><div class="epics">${l.map(epicCard).join('')}</div>` : '';
+  return `<section class="blk" id="sujets"><div class="sh"><h2>Gros sujets</h2><span class="meta">${all.length} sujet(s)</span><p>Les chantiers de fond, avec leur deadline. Ceux du sprint en cours sont surlignés.</p></div>
+    ${g('Actifs', active)}${g('À venir et points d\'attention', coming)}${g('En attente', waiting)}</section>`;
+}
+
+function backlogSection() {
+  const bl = S.backlog.filter(inCh);
+  const groups = [...new Set(bl.map(t => t.epic))].map(name => ({ name, list: bl.filter(t => t.epic === name) }));
+  const ideas = (R && R.ideas && !CH) ? R.ideas.items : [];
+  return `<section class="blk" id="backlog"><div class="sh"><h2>Backlog</h2><span class="meta">${bl.length} sous-sujet(s) · ${days(sum(bl, t => t.estimate))} estimés</span><p>Ce qui attend d'être planifié dans un sprint, par gros sujet.</p></div>
+    <div class="backlog">${groups.map(g => `<div class="bl-g"><h4>${esc(g.name || 'Sans gros sujet')} ${g.list[0].chantier ? `<span class="tag ch">${esc(g.list[0].chantier)}</span>` : ''}</h4>
+      ${g.list.map(t => `<div class="trow"><span class="t">${esc(t.title)}${t.carried_from ? ` <span class="tag warn">revenu de ${esc(t.carried_from)}</span>` : ''}${t.priority === 1 ? ' <span class="tag blk">Prioritaire</span>' : ''}</span><span class="d">${esc(t.person || '—')} · ${days(t.estimate)}</span></div>`).join('')}</div>`).join('') || '<div class="trow" style="color:var(--muted)">Backlog vide.</div>'}
+      ${ideas.length ? `<div class="bl-g"><h4>${esc(R.ideas.title)}</h4><div class="ideas">${ideas.map(x => `<span>${esc(x)}</span>`).join('')}</div></div>` : ''}
+    </div></section>`;
+}
+
+function historySection() {
+  const wins = R ? R.chantiers.map(c => ({ name: c.name, items: c.items.filter(i => i.status === 'fait') })).filter(c => c.items.length && (!CH || c.name === CH)) : [];
+  const nWins = sum(wins, c => c.items.length) + S.done_epics.length;
+  const h = S.history;
+  return `<section class="blk" id="historique"><div class="sh"><h2>Historique</h2></div>
+    ${h.length ? `<table class="hist"><thead><tr><th>Sprint</th><th>Livrés</th><th>Engagé → livré</th><th>Imprévus</th><th>Reportés</th></tr></thead><tbody>${h.map(s => { const r = s.review || {}; return `<tr><td><b>${esc(s.name)}</b> <span style="color:var(--muted)">${dfmt(s.start)}</span></td><td class="n">${r.tasks_done ?? '—'}</td><td class="n">${days(r.engaged_days)} → ${days(r.done_days)}</td><td class="n">${r.incidents ?? 0} (${days(r.incident_days || 0)})</td><td class="n">${r.carried ?? 0} basculé(s), ${r.back_to_backlog ?? 0} au backlog</td></tr>`; }).join('')}</tbody></table>`
+      : '<p style="color:var(--muted);font-size:14px;margin:0 0 14px">Le bilan de chaque sprint clôturé apparaîtra ici.</p>'}
+    <div style="height:14px"></div>
+    <details class="wins"><summary>🏆 ${nWins} réalisations déjà livrées <span style="color:var(--muted);font-weight:500;font-size:13px">— afficher</span></summary>
+      <div class="wins-grid">${wins.map(c => `<h5>${esc(c.name)}</h5>${c.items.map(i => `<div>${esc(i.title)}</div>`).join('')}`).join('')}${S.done_epics.length ? `<h5>Gros sujets terminés</h5>${S.done_epics.map(n => `<div>${esc(n)}</div>`).join('')}` : ''}</div>
+    </details></section>`;
 }
 
 function render() {
-  let shown = 0;
-  $('#chantiers').innerHTML = D.chantiers.map(c => {
-    const live = c.items.filter(i => i.status !== 'annule');
-    const k = counts(live);
-    const match = c.items.filter(i => !query || hay(i).includes(norm(query)));
-    shown += match.length;
-    // la colonne « En attente » n'apparaît que pour les chantiers qui en ont
-    const cols = COLS.filter(col => (filter === 'all' || col.key === filter) && (!col.optional || filter === col.key || match.some(i => col.statuses.includes(i.status))));
-    return `<section class="chantier ${match.length ? '' : 'hidden'}" id="${c.id}">
-      <div class="ch-head">
-        <div>
-          <h2>${esc(c.name)} <small>${k.fait} / ${live.length} faits</small></h2>
-          <div class="tag">${esc(c.tagline)}</div>
-          <div class="progress" aria-hidden="true">${bar(k, live.length)}</div>
-          <div class="legend">${['fait', 'en_cours', 'a_venir', 'en_attente', 'bloque', 'a_preciser'].filter(s => k[s]).map(s => `<span><i style="background:${ST[s].color}"></i>${k[s]} ${ST[s].label.toLowerCase()}</span>`).join('')}</div>
-        </div>
-        ${c.highlights && c.highlights.length ? `<div class="highlights"><h3>Points clés</h3><ul>${c.highlights.map(h => `<li>${esc(h)}</li>`).join('')}</ul></div>` : ''}
-      </div>
-      <div class="board cols-${cols.length}">
-        ${cols.map(col => {
-          const list = match.filter(i => col.statuses.includes(i.status)).sort((a, b) => (ORDER[a.status] ?? 0) - (ORDER[b.status] ?? 0));
-          const s = ST[col.key];
-          return `<div class="col">
-            <div class="col-head"><span class="ic" style="color:${s.color};background:${s.bg}">${s.mark}</span>${col.title}<span class="cnt">${list.length}</span></div>
-            ${list.length ? list.map(card).join('') : '<div class="empty">Rien pour le moment.</div>'}
-          </div>`;
-        }).join('')}
-      </div>
-    </section>`;
-  }).join('');
-  $('#noresult').style.display = shown ? 'none' : 'block';
+  $('#main').innerHTML = sprintSection() + nextSection() + epicsSection() + backlogSection() + historySection();
 }
-
-/* ---------- pistes ---------- */
-const P = D.ideas;
-$('#pistes').innerHTML = `<h2>${esc(P.title)}</h2><p>${esc(P.text)}</p><div class="chips">${P.items.map(x => `<span>${esc(x)}</span>`).join('')}</div>`;
-
-document.querySelectorAll('#filter button').forEach(b => b.onclick = () => {
-  filter = b.dataset.f;
-  document.querySelectorAll('#filter button').forEach(x => x.classList.toggle('on', x === b));
+header();
+render();
+$('#foot').textContent = 'Mis à jour le ' + dfmt(S.updated, { day: 'numeric', month: 'long', year: 'numeric' }) + ' · sprints d\'une semaine, charge estimée en jours.';
+document.querySelectorAll('#chf button').forEach(b => b.onclick = () => {
+  CH = b.dataset.c;
+  document.querySelectorAll('#chf button').forEach(x => x.classList.toggle('on', x === b));
   render();
 });
-$('#q').addEventListener('input', e => { query = e.target.value.trim(); render(); });
-render();
 </script>
 </body>
 </html>
