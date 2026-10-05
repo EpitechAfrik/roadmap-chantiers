@@ -175,6 +175,20 @@ details.wins[open] summary::before { transform: rotate(90deg); }
 .wins-grid div { font-size: 13px; color: var(--text-2); padding: 2px 0; }
 .wins-grid div::before { content: "✓ "; color: var(--fait); font-weight: 700; }
 
+
+details.subs { border-top: 1px dashed var(--border); padding-top: 8px; margin-top: 2px; }
+details.subs summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text-2); list-style: none; display: flex; align-items: center; gap: 6px; }
+details.subs summary::-webkit-details-marker { display: none; }
+details.subs summary::before { content: "›"; font-size: 16px; line-height: 1; transition: transform .15s; }
+details.subs[open] summary::before { transform: rotate(90deg); }
+details.subs summary:hover { color: var(--text); }
+details.subs ul { list-style: none; margin: 8px 0 0; padding: 0; max-height: 300px; overflow-y: auto; overscroll-behavior: contain; }
+details.subs li { display: flex; gap: 8px; padding: 6px 2px; border-top: 1px solid var(--surface-2); font-size: 13px; line-height: 1.35; }
+details.subs li:first-child { border-top: 0; }
+details.subs li .mk { flex: none; width: 14px; text-align: center; font-weight: 700; }
+details.subs li .sm { display: block; font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+details.subs li.fait .tt { color: var(--muted); }
+.epics { align-items: start; }
 footer { border-top: 1px solid var(--border); padding: 20px 0 36px; color: var(--muted); font-size: 13px; }
 .hidden { display: none !important; }
 @media print { .bar { display: none; } .hero { print-color-adjust: exact; -webkit-print-color-adjust: exact; } .card, .epic { break-inside: avoid; } }
@@ -283,6 +297,7 @@ function nextSection() {
     <div class="next">${ts.length ? ts.map(t => `<div class="trow"><span class="t">${esc(t.title)} ${t.carried_from ? `<span class="tag warn">reporté de ${esc(t.carried_from)}</span>` : ''}${t.from_incident ? '<span class="tag warn">imprévu</span>' : ''}</span><span class="e">${esc(t.epic || '')}</span><span class="d">${esc(t.person || '—')} · ${days(t.estimate)}</span></div>`).join('') : '<div class="trow" style="color:var(--muted)">Rien de planifié pour l\'instant.</div>'}</div></section>`;
 }
 
+const TS = { en_cours: ['◐', 'var(--cours)', 'En cours'], a_faire: ['○', 'var(--venir)', 'À faire'], fait: ['✓', 'var(--fait)', 'Fait'] };
 function epicCard(e) {
   const pct = e.days_total ? 100 * e.days_done / e.days_total : (e.tasks_total ? 100 * e.tasks_done / e.tasks_total : 0);
   const st = { bloque: '<span class="tag blk">Bloqué</span>', en_attente: '<span class="tag att">En attente</span>', a_venir: '<span class="tag">À venir</span>' }[e.status] || '';
@@ -292,6 +307,10 @@ function epicCard(e) {
     ${e.description ? `<div class="desc">${esc(e.description)}</div>` : ''}
     ${e.tasks_total ? `<div class="prog"><span style="width:${pct}%"></span></div><div class="who"><span>${e.tasks_done}/${e.tasks_total} sous-sujets faits</span><span>${e.days_total ? `${String(e.days_done).replace('.', ',')} / ${days(e.days_total)}` : ''}</span></div>` : ''}
     ${e.owner || e.contact ? `<div class="who"><span>${e.owner ? `Porteur <b>${esc(e.owner)}</b>` : ''}</span><span>${esc(e.contact || '')}</span></div>` : ''}
+    ${(e.tasks || []).length ? `<details class="subs"><summary>Voir les ${e.tasks.length} sous-sujet${e.tasks.length > 1 ? 's' : ''}</summary>
+      <ul>${e.tasks.map(t => { const m = TS[t.status] || TS.a_faire; return `<li class="${t.status}"><span class="mk" style="color:${m[1]}" title="${m[2]}">${m[0]}</span>
+        <span class="tt">${esc(t.title)}<span class="sm">${[t.status === 'fait' ? 'fait' : t.sprint ? 'Sprint ' + t.sprint.replace('S', '') : 'Backlog', t.person, t.estimate != null ? days(t.estimate) : (t.status === 'fait' ? '' : 'à estimer')].filter(Boolean).map(esc).join(' · ')}</span></span></li>`; }).join('')}</ul></details>`
+      : '<div class="who" style="color:var(--muted)">Pas encore de sous-sujet.</div>'}
   </div>`;
 }
 

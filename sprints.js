@@ -79,7 +79,8 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 0,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": []
   },
   {
    "name": "Compléments RAF",
@@ -94,7 +95,72 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 9,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": [
+    {
+     "title": "Bugs : navigation entre les années scolaires",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "David",
+     "estimate": null
+    },
+    {
+     "title": "Bugs : paiements en avance, échéances, états de paiement",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "David",
+     "estimate": null
+    },
+    {
+     "title": "Réaffectation des promos (données à réimporter)",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "David",
+     "estimate": null
+    },
+    {
+     "title": "10 KPI : frais de scolarité, boursiers, recouvrement, abandons, inscriptions…",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "David",
+     "estimate": null
+    },
+    {
+     "title": "Paie : échelonnement des charges, état des salaires, avances, ordres de virement",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "David",
+     "estimate": null
+    },
+    {
+     "title": "Paie : déclarations fiscales et sociales, imputation budgétaire",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "David",
+     "estimate": null
+    },
+    {
+     "title": "Budget & compta : modèles d'écriture",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "David",
+     "estimate": null
+    },
+    {
+     "title": "États financiers SYSCOHADA révisé pour toutes les entités",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "David",
+     "estimate": null
+    },
+    {
+     "title": "Ordres de virement MoMo MTN pour les fournisseurs",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "David",
+     "estimate": null
+    }
+   ]
   },
   {
    "name": "Compléments RH",
@@ -109,7 +175,23 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 2,
-   "in_sprint": true
+   "in_sprint": true,
+   "tasks": [
+    {
+     "title": "Onboarding / offboarding : finaliser et mettre en production",
+     "status": "en_cours",
+     "sprint": "S41",
+     "person": "Pissano",
+     "estimate": null
+    },
+    {
+     "title": "Recrutement : grille d'évaluation générée par l'IA",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "Pissano",
+     "estimate": null
+    }
+   ]
   },
   {
    "name": "Intégration du stock MG – SI",
@@ -124,7 +206,51 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 6,
-   "in_sprint": true
+   "in_sprint": true,
+   "tasks": [
+    {
+     "title": "Assainir les intitulés produits en production",
+     "status": "en_cours",
+     "sprint": "S41",
+     "person": "Pissano",
+     "estimate": null
+    },
+    {
+     "title": "Bon de commande : choisir le stock de livraison à la création (retour Rachad)",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "Pissano",
+     "estimate": null
+    },
+    {
+     "title": "Tester le coût moyen au niveau du produit (retour Rachad)",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "Pissano",
+     "estimate": null
+    },
+    {
+     "title": "Tableau de bord du pack SI (retour Amos)",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "Pissano",
+     "estimate": null
+    },
+    {
+     "title": "Notifier l'état d'un produit en stock (retour Amos)",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "Pissano",
+     "estimate": null
+    },
+    {
+     "title": "Motif obligatoire et validation hiérarchique pour maintenance et mise au rebut (retour Amos)",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "Pissano",
+     "estimate": null
+    }
+   ]
   },
   {
    "name": "Module Sprint Orchestra",
@@ -139,7 +265,16 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 1,
-   "in_sprint": true
+   "in_sprint": true,
+   "tasks": [
+    {
+     "title": "Développement du module Sprint Orchestra",
+     "status": "en_cours",
+     "sprint": "S41",
+     "person": null,
+     "estimate": null
+    }
+   ]
   },
   {
    "name": "Mydocs — évolutions",
@@ -154,7 +289,16 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 1,
-   "in_sprint": true
+   "in_sprint": true,
+   "tasks": [
+    {
+     "title": "Filtres dynamiques de la liste des étudiants (encore codés en dur)",
+     "status": "en_cours",
+     "sprint": "S41",
+     "person": "Pissano",
+     "estimate": null
+    }
+   ]
   },
   {
    "name": "Portail parent",
@@ -169,7 +313,30 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 3,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": [
+    {
+     "title": "Intégrer les éléments V2",
+     "status": "a_faire",
+     "sprint": null,
+     "person": null,
+     "estimate": null
+    },
+    {
+     "title": "Sélection de l'année et de l'emploi du temps",
+     "status": "a_faire",
+     "sprint": null,
+     "person": null,
+     "estimate": null
+    },
+    {
+     "title": "Rétablir l'accès puis mettre en ligne",
+     "status": "a_faire",
+     "sprint": null,
+     "person": null,
+     "estimate": null
+    }
+   ]
   },
   {
    "name": "Pédagogie : anglais",
@@ -184,7 +351,8 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 0,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": []
   },
   {
    "name": "Pédagogie étudiant & APE",
@@ -199,7 +367,8 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 0,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": []
   },
   {
    "name": "Career Center",
@@ -214,7 +383,8 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 0,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": []
   },
   {
    "name": "Modules juridiques",
@@ -229,7 +399,8 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 0,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": []
   },
   {
    "name": "Admission",
@@ -244,7 +415,8 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 0,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": []
   },
   {
    "name": "CRM AEIG (toutes marques)",
@@ -259,7 +431,8 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 0,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": []
   },
   {
    "name": "Campagnes des marques : Digital Valley, Takabytes, AfrikEdutech, Future Studio",
@@ -274,7 +447,8 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 0,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": []
   },
   {
    "name": "Gestion du courrier",
@@ -289,7 +463,16 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 1,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": [
+    {
+     "title": "Rédiger le cahier des charges",
+     "status": "a_faire",
+     "sprint": null,
+     "person": "Pissano",
+     "estimate": null
+    }
+   ]
   },
   {
    "name": "Intégration Mydocs",
@@ -304,7 +487,8 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 0,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": []
   },
   {
    "name": "Automatisations (consolidation des retours, développement)",
@@ -319,7 +503,8 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 0,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": []
   },
   {
    "name": "Dashboards de pilotage et recette go-live V2",
@@ -334,7 +519,8 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 0,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": []
   },
   {
    "name": "Procédures internes dans Odoo",
@@ -349,7 +535,8 @@ window.SPRINTS = {
    "days_total": 0,
    "days_done": 0,
    "unestimated": 0,
-   "in_sprint": false
+   "in_sprint": false,
+   "tasks": []
   }
  ],
  "backlog": [
